@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Nutritional Assistant</string>
+
+    // String Resources for activities names
+    <string name="activity_configuration">Configuration</string>
+
+    // Common Strings
+    <string name="save">Save</string>
+    <string name="none">None</string>
+    <string name="invalid_option">Invalid Option. Something went wrong :(</string>
+
+    // Strings used for Menu Labeling
+    <string name="menu_by_category_label">By Category</string>
+    <string name="menu_all_ingred_list_label">All Ingredients</string>
+    <string name="menu_fav_list_label">Favorites List</string>
+    <string name="menu_recipes_list_label">Recipes List</string>
+    <string name="menu_config_label">Configuration</string>
+
+    // Strings for Configuration Activity
+    <string name="config_label_allow_mobile_connection">Allow Mobile Data Connection</string>
+    <string name="config_button_config_account">Configure Account</string>
+    <string name="config_account">"Configured Account: "</string>
+</resources>

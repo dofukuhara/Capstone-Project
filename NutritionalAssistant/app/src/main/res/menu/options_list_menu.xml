@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_by_category"
+        android:title="@string/menu_by_category_label" />
+    <item
+        android:id="@+id/menu_all_ingred"
+        android:title="@string/menu_all_ingred_list_label" />
+    <item
+        android:id="@+id/menu_fav_list"
+        android:title="@string/menu_fav_list_label" />
+    <item
+        android:id="@+id/menu_recipes_list"
+        android:title="@string/menu_recipes_list_label" />
+    <item
+        android:id="@+id/menu_config"
+        android:title="@string/menu_config_label" />
+
+</menu>

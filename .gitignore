@@ -1,0 +1,9 @@
+/NutritionalAssistant/*.iml
+/NutritionalAssistant/.gradle
+/NutritionalAssistant/local.properties
+/NutritionalAssistant/.idea/workspace.xml
+/NutritionalAssistant/.idea/libraries
+/NutritionalAssistant/.DS_Store
+/NutritionalAssistant/build
+/NutritionalAssistant/captures
+/NutritionalAssistant/.externalNativeBuild
