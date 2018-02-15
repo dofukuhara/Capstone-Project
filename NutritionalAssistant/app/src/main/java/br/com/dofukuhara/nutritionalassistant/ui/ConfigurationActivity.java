@@ -1,9 +1,12 @@
 package br.com.dofukuhara.nutritionalassistant.ui;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -70,6 +73,19 @@ public class ConfigurationActivity extends AppCompatActivity {
         if (intent.hasExtra(Utils.CONST_CONFIG_SETUP_WIZARD) &&
                 intent.getBooleanExtra(Utils.CONST_CONFIG_SETUP_WIZARD, false)) {
             isFirstTimeOpen = true;
+
+            // Create a dialog in order to notify the user about the Initial Configuration
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.config_popup_first_time_title)
+                    .setMessage(getString(R.string.config_popup_first_time_body, getString(R.string.app_name)))
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User clicked OK button
+                        }
+                    })
+                    .setCancelable(false)
+                    .show();
+
         } else {
 
             // TODO: Return to previous activity

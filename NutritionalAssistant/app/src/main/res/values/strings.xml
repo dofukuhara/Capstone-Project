@@ -17,6 +17,9 @@
     <string name="menu_config_label">Configuration</string>
 
     // Strings for Configuration Activity
+    <string name="config_popup_first_time_title">Initial Configuration</string>
+    <string name="config_popup_first_time_body">Welcome Aboard!\nBefore start using \"%1$s\",
+        lets run some initial configuration, ok?</string>
     <string name="config_label_allow_mobile_connection">Allow Mobile Data Connection</string>
     <string name="config_button_config_account">Configure Account</string>
     <string name="config_account">"Configured Account: "</string>
