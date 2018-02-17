@@ -5,15 +5,45 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import br.com.dofukuhara.nutritionalassistant.R;
-import br.com.dofukuhara.nutritionalassistant.util.Utils;
+import java.util.ArrayList;
 
-public class CategoryListActivity extends AppCompatActivity {
+import br.com.dofukuhara.nutritionalassistant.R;
+import br.com.dofukuhara.nutritionalassistant.adapter.CategoryAdapter;
+import br.com.dofukuhara.nutritionalassistant.model.Category;
+import br.com.dofukuhara.nutritionalassistant.network.TacoRestClient;
+import br.com.dofukuhara.nutritionalassistant.util.MenuOptionHandling;
+import br.com.dofukuhara.nutritionalassistant.util.Utils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class CategoryListActivity extends AppCompatActivity implements CategoryAdapter.CategoryItemClickListener {
+
+    private ProgressBar mPbCategoryList;
+    private RecyclerView mRvCategoryList;
+
+    private ArrayList<Category> mCategoryList;
+    private CategoryAdapter mCategoryAdapter;
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        if (mCategoryList != null) {
+           outState.putParcelableArrayList(Utils.CONST_BUNDLE_CATEGORY_LIST_PARCELABLE,
+                   mCategoryList);
+        }
+        super.onSaveInstanceState(outState);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +58,72 @@ public class CategoryListActivity extends AppCompatActivity {
             startActivity(intent);
 
             finish();
+        } else {
+
+            layoutInitialization();
+
+            if (savedInstanceState == null ||
+                    !savedInstanceState.containsKey(Utils.CONST_BUNDLE_CATEGORY_LIST_PARCELABLE)) {
+                // If the list is not presented in the Bundle, lets get it from Content Provider
+                // or via Rest
+                // TODO: Query via Content Provider in case that the user did not allowed network in Mobile Data
+                getCategoryFromRest();
+            } else {
+                // In case that the screen was rotated, we can recover the list from Bundle
+                mCategoryList = savedInstanceState
+                        .getParcelableArrayList(Utils.CONST_BUNDLE_CATEGORY_LIST_PARCELABLE);
+
+                mCategoryAdapter.setCategoryList(mCategoryList);
+                mRvCategoryList.setAdapter(mCategoryAdapter);
+
+            }
         }
+    }
+
+    private void layoutInitialization() {
+        setTitle(R.string.activity_category);
+
+        mPbCategoryList = findViewById(R.id.pb_category_list);
+        mRvCategoryList = findViewById(R.id.rv_category_list);
+
+        mRvCategoryList.setHasFixedSize(true);
+        mRvCategoryList.setLayoutManager(new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false));
+
+        mCategoryAdapter = new CategoryAdapter(this);
+    }
+
+    private void getCategoryFromRest() {
+        mPbCategoryList.setVisibility(View.VISIBLE);
+
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl(getString(R.string.base_url_for_taco))
+                .addConverterFactory(GsonConverterFactory.create());
+        Retrofit retrofit = builder.build();
+
+        TacoRestClient client = retrofit.create(TacoRestClient.class);
+
+        Call<ArrayList<Category>> call = client.getListOfCategories();
+
+        call.enqueue(new Callback<ArrayList<Category>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Category>> call, Response<ArrayList<Category>> response) {
+                mPbCategoryList.setVisibility(View.GONE);
+
+                mCategoryList = response.body();
+
+                mCategoryAdapter.setCategoryList(mCategoryList);
+                mRvCategoryList.setAdapter(mCategoryAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Category>> call, Throwable t) {
+                mPbCategoryList.setVisibility(View.GONE);
+
+                // TODO: Handle error exception
+
+            }
+        });
     }
 
     @Override
@@ -43,56 +138,13 @@ public class CategoryListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int selectedItem = item.getItemId();
 
-        Intent intent;
-
-        switch (selectedItem) {
-            case R.id.menu_by_category:
-
-                // TODO: Implement Menu By Category option
-                Toast.makeText(this, "This will launch " +
-                        getString(R.string.menu_by_category_label), Toast.LENGTH_SHORT).show();
-
-                break;
-
-            case R.id.menu_all_ingred:
-
-                // TODO: Implement Menu for All Ingredients option
-                Toast.makeText(this, "This will launch " +
-                        getString(R.string.menu_all_ingred_list_label), Toast.LENGTH_SHORT).show();
-
-                break;
-
-            case R.id.menu_fav_list:
-
-                // TODO: Implement Menu for Favorites List option
-                Toast.makeText(this, "This will launch " +
-                        getString(R.string.menu_fav_list_label), Toast.LENGTH_SHORT).show();
-
-                break;
-
-            case R.id.menu_recipes_list:
-
-                // TODO: Implement Menu for Recipes List option
-                Toast.makeText(this, "This will launch " +
-                        getString(R.string.menu_recipes_list_label), Toast.LENGTH_SHORT).show();
-
-                break;
-
-            case R.id.menu_config:
-                // Launch Configuration Activity
-                intent = new Intent(this, ConfigurationActivity.class);
-                startActivity(intent);
-
-                break;
-
-            default:
-                // Default case should never happen... but in case so, let's give this info the user
-                Toast.makeText(this, getString(R.string.invalid_option),
-                        Toast.LENGTH_LONG).show();
-                break;
-        }
-
+        MenuOptionHandling.performAction(selectedItem, this);
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCategoryItemClick(Category category) {
+        // TODO: Implement onClickListener from CategoryList
     }
 }

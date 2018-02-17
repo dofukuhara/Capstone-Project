@@ -1,4 +1,5 @@
 /NutritionalAssistant/*.iml
+/NutritionalAssistant/app/app.iml
 /NutritionalAssistant/.gradle
 /NutritionalAssistant/local.properties
 /NutritionalAssistant/.idea/workspace.xml

@@ -21,4 +21,9 @@ public final class Utils {
     /* Consts for Intent Actions */
     // Intent action to inform that the config wizard was auto launched by Main Activity
     public static final String CONST_CONFIG_SETUP_WIZARD = "const_config_setup_wizard";
+
+    /* Consts for SavedInstance Bundle */
+    // CategoryListActivity - CategoryList Parcelable
+    public static final String CONST_BUNDLE_CATEGORY_LIST_PARCELABLE =
+            "const_bundle_category_list_parcelable";
 }

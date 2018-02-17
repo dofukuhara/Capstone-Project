@@ -3,11 +3,15 @@
 
     // String Resources for activities names
     <string name="activity_configuration">Configuration</string>
+    <string name="activity_category">Category List</string>
 
     // Common Strings
     <string name="save">Save</string>
     <string name="none">None</string>
+    <string name="ok">Ok</string>
     <string name="invalid_option">Invalid Option. Something went wrong :(</string>
+
+    <string name="base_url_for_taco" translatable="false">"https://taco-alimentos.herokuapp.com/"</string>
 
     // Strings used for Menu Labeling
     <string name="menu_by_category_label">By Category</string>

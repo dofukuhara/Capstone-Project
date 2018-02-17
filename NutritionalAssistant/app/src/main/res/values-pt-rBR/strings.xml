@@ -4,10 +4,12 @@
 
     // Strings para nome das activities
     <string name="activity_configuration">Configurações</string>
+    <string name="activity_category">Lista Por Categoria</string>
 
     // Strings comuns
     <string name="save">Salvar</string>
     <string name="none">Nenhuma</string>
+    <string name="ok">Ok</string>
     <string name="invalid_option">Opção Inválida. Algo deu errado :(</string>
 
     // Strings para labels do Menu
@@ -19,7 +21,7 @@
 
     // Strings para Activity de Configuração
     <string name="config_popup_first_time_title">Initial Configuration</string>
-    <string name="config_popup_first_time_body">Seja Bem Vindo!\nAntes de começar a utilizar \"%1$",
+    <string name="config_popup_first_time_body">Seja Bem Vindo!\nAntes de começar a utilizar \"%1$s\",
         vamos fazer umas configurações iniciais, ok?</string>
     <string name="config_label_allow_mobile_connection">Habilitar conexão via Dados Móveis</string>
     <string name="config_button_config_account">Configurar Conta</string>"
