@@ -5,6 +5,7 @@
     // Strings para nome das activities
     <string name="activity_configuration">Configurações</string>
     <string name="activity_category">Lista Por Categoria</string>
+    <string name="activity_all_ingredients">Lista de Todos os Ingredientes</string>
 
     // Strings comuns
     <string name="save">Salvar</string>
@@ -26,5 +27,6 @@
     <string name="config_label_allow_mobile_connection">Habilitar conexão via Dados Móveis</string>
     <string name="config_button_config_account">Configurar Conta</string>"
     <string name="config_account">"Conta Configurada: "</string>
+    <string name="configuration_not_saved">A configuração não foi salva...</string>
 
 </resources>

@@ -50,6 +50,6 @@ public class Category implements Parcelable{
     }
 
     public String getCategoryName() {
-        return this.category;
+        return this.category.trim();
     }
 }

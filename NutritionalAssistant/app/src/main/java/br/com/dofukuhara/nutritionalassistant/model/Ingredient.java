@@ -147,7 +147,7 @@ public class Ingredient implements Parcelable {
     }
 
     public String getDescription() {
-        return description;
+        return description.trim();
     }
 
     public String getClassification() {

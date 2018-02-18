@@ -26,4 +26,7 @@ public final class Utils {
     // CategoryListActivity - CategoryList Parcelable
     public static final String CONST_BUNDLE_CATEGORY_LIST_PARCELABLE =
             "const_bundle_category_list_parcelable";
+    // AllIngredientsListActivity - IngredientsList Parcelable
+    public static final String CONST_BUNDLE_ALL_INGREDIENTS_LIST_PARCELABLE =
+            "const_bundle_all_ingredients_list_parcelable";
 }

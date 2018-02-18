@@ -4,6 +4,7 @@
     // String Resources for activities names
     <string name="activity_configuration">Configuration</string>
     <string name="activity_category">Category List</string>
+    <string name="activity_all_ingredients">All Ingredients List</string>
 
     // Common Strings
     <string name="save">Save</string>
@@ -27,4 +28,5 @@
     <string name="config_label_allow_mobile_connection">Allow Mobile Data Connection</string>
     <string name="config_button_config_account">Configure Account</string>
     <string name="config_account">"Configured Account: "</string>
+    <string name="configuration_not_saved">Configuration not saved...</string>
 </resources>

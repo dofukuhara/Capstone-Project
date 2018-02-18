@@ -3,8 +3,8 @@ package br.com.dofukuhara.nutritionalassistant.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -15,11 +15,13 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import br.com.dofukuhara.nutritionalassistant.R;
 import br.com.dofukuhara.nutritionalassistant.adapter.CategoryAdapter;
 import br.com.dofukuhara.nutritionalassistant.model.Category;
 import br.com.dofukuhara.nutritionalassistant.network.TacoRestClient;
+import br.com.dofukuhara.nutritionalassistant.util.CategoriesNameComparator;
 import br.com.dofukuhara.nutritionalassistant.util.MenuOptionHandling;
 import br.com.dofukuhara.nutritionalassistant.util.Utils;
 import retrofit2.Call;
@@ -35,6 +37,8 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryA
 
     private ArrayList<Category> mCategoryList;
     private CategoryAdapter mCategoryAdapter;
+
+    private boolean isMobileDataAllowed;
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -53,6 +57,8 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryA
         SharedPreferences sharedPref = getSharedPreferences(
                 Utils.SHARED_PREF_KEY, Context.MODE_PRIVATE);
         if (!sharedPref.contains(Utils.CONST_SHARED_PREF_ALREADY_OPENED_APP)) {
+            // If this is the first time that the Application was opened,
+            // we will send the user to the configuration activity first, prior to use the app
             Intent intent = new Intent(this, ConfigurationActivity.class);
             intent.putExtra(Utils.CONST_CONFIG_SETUP_WIZARD, true);
             startActivity(intent);
@@ -61,6 +67,17 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryA
         } else {
 
             layoutInitialization();
+
+            // Lets check if the user allowed us to use Mobile Data network, by checking the
+            // configuration from SharedPref. If the value, by somehow, is not there, initialize
+            // with the default value.
+            if (sharedPref.contains(Utils.CONST_SHARED_PREF_IS_MOBILE_DATA_ALLOWED)) {
+                isMobileDataAllowed = sharedPref.getBoolean(
+                        Utils.CONST_SHARED_PREF_IS_MOBILE_DATA_ALLOWED,
+                        getResources().getBoolean(R.bool.default_is_mobile_data_allowed));
+            } else {
+                isMobileDataAllowed = getResources().getBoolean(R.bool.default_is_mobile_data_allowed);
+            }
 
             if (savedInstanceState == null ||
                     !savedInstanceState.containsKey(Utils.CONST_BUNDLE_CATEGORY_LIST_PARCELABLE)) {
@@ -112,6 +129,8 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryA
 
                 mCategoryList = response.body();
 
+                Collections.sort(mCategoryList, new CategoriesNameComparator());
+
                 mCategoryAdapter.setCategoryList(mCategoryList);
                 mRvCategoryList.setAdapter(mCategoryAdapter);
             }
@@ -146,5 +165,6 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryA
     @Override
     public void onCategoryItemClick(Category category) {
         // TODO: Implement onClickListener from CategoryList
+        Toast.makeText(this, category.getCategoryName(), Toast.LENGTH_SHORT).show();
     }
 }

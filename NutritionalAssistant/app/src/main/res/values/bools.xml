@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="default_is_mobile_data_allowed">false</bool>
+</resources>

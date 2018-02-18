@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import br.com.dofukuhara.nutritionalassistant.R;
+import br.com.dofukuhara.nutritionalassistant.ui.AllIngredientsListActivity;
+import br.com.dofukuhara.nutritionalassistant.ui.CategoryListActivity;
 import br.com.dofukuhara.nutritionalassistant.ui.ConfigurationActivity;
 
 /**
@@ -18,19 +20,29 @@ public class MenuOptionHandling {
 
         switch (selectedItem) {
             case R.id.menu_by_category:
+                if(!context.getClass().getName().equals(CategoryListActivity.class.getName())) {
+                    intent = new Intent(context, CategoryListActivity.class);
+                    context.startActivity(intent);
+                } else {
+                    // If the class that is calling this is the one that the user is trying to launch
+                    // there is no need to do anything new
 
-                // TODO: Implement Menu By Category option
-                Toast.makeText(context, "This will launch " +
-                        context.getString(R.string.menu_by_category_label), Toast.LENGTH_SHORT).show();
+                    // TODO: Check if a reload operation would be suitable in this case!
+                }
 
                 break;
 
             case R.id.menu_all_ingred:
+                if (!context.getClass().getName().equals(AllIngredientsListActivity.class.getName())) {
+                    intent = new Intent(context, AllIngredientsListActivity.class);
+                    context.startActivity(intent);
 
-                // TODO: Implement Menu for All Ingredients option
-                Toast.makeText(context, "This will launch " +
-                        context.getString(R.string.menu_all_ingred_list_label), Toast.LENGTH_SHORT).show();
+                } else {
+                    // If the class that is calling this is the one that the user is trying to launch
+                    // there is no need to do anything new
 
+                    // TODO: Check if a reload operation would be suitable in this case!
+                }
                 break;
 
             case R.id.menu_fav_list:

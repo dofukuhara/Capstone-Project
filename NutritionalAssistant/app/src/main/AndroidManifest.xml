@@ -21,7 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.ConfigurationActivity"></activity>
+        <activity android:name=".ui.ConfigurationActivity" />
+        <activity android:name=".ui.AllIngredientsListActivity"></activity>
     </application>
 
 </manifest>
