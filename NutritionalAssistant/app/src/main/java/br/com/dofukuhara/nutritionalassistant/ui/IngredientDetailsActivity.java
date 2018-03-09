@@ -2,6 +2,7 @@ package br.com.dofukuhara.nutritionalassistant.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.PersistableBundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +11,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -166,6 +166,16 @@ public class IngredientDetailsActivity extends AppCompatActivity {
     TextView mTvIngredientVitaC;
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (mIngredient != null) {
+            outState.putParcelable(Utils.CONST_BUNDLE_INGREDIENT_PARCELABLE,
+                    mIngredient);
+        }
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredient_details);
@@ -191,35 +201,48 @@ public class IngredientDetailsActivity extends AppCompatActivity {
 
         // TODO: First, check if the food is in Content Provider, if not, fetch on the Internet
 
-        showLoadingBar(true);
+        loadIngredientContent(savedInstanceState);
+    }
 
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl(getString(R.string.base_url_for_taco))
-                .addConverterFactory(GsonConverterFactory.create());
-        Retrofit retrofit = builder.build();
+    private void loadIngredientContent(Bundle savedInstanceState) {
+        if (savedInstanceState == null ||
+                !savedInstanceState.containsKey(Utils.CONST_BUNDLE_INGREDIENT_PARCELABLE)) {
+            showLoadingBar(true);
 
-        TacoRestClient client = retrofit.create(TacoRestClient.class);
+            Retrofit.Builder builder = new Retrofit.Builder()
+                    .baseUrl(getString(R.string.base_url_for_taco))
+                    .addConverterFactory(GsonConverterFactory.create());
+            Retrofit retrofit = builder.build();
 
-        Call<ArrayList<Ingredient>> call = client.getIngredientById(mIngredientId);
+            TacoRestClient client = retrofit.create(TacoRestClient.class);
 
-        call.enqueue(new Callback<ArrayList<Ingredient>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Ingredient>> call, Response<ArrayList<Ingredient>> response) {
-                showLoadingBar(false);
+            Call<ArrayList<Ingredient>> call = client.getIngredientById(mIngredientId);
 
-                mIngredientList = response.body();
-                mIngredient = mIngredientList.get(0);
+            call.enqueue(new Callback<ArrayList<Ingredient>>() {
+                @Override
+                public void onResponse(Call<ArrayList<Ingredient>> call, Response<ArrayList<Ingredient>> response) {
+                    showLoadingBar(false);
 
-                // TODO: Salvar o resultado obtido no Content Provider
+                    mIngredientList = response.body();
+                    mIngredient = mIngredientList.get(0);
 
-                setLayoutComponent();
-            }
+                    // TODO: Salvar o resultado obtido no Content Provider
 
-            @Override
-            public void onFailure(Call<ArrayList<Ingredient>> call, Throwable t) {
-                showLoadingBar(false);
-            }
-        });
+                    setLayoutComponent();
+                }
+
+                @Override
+                public void onFailure(Call<ArrayList<Ingredient>> call, Throwable t) {
+                    showLoadingBar(false);
+                }
+            });
+        } else {
+            mIngredient = savedInstanceState.getParcelable(
+                    Utils.CONST_BUNDLE_INGREDIENT_PARCELABLE
+            );
+
+            setLayoutComponent();
+        }
     }
 
     private void setLayoutComponent() {
