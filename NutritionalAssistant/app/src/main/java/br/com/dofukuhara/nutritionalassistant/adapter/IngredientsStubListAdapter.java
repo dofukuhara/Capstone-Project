@@ -11,23 +11,24 @@ import java.util.ArrayList;
 
 import br.com.dofukuhara.nutritionalassistant.R;
 import br.com.dofukuhara.nutritionalassistant.model.Ingredient;
+import br.com.dofukuhara.nutritionalassistant.model.IngredientStub;
 
 /**
  * Created by dofukuhara on 17/02/2018.
  */
 
-public class IngredientsListAdapter extends RecyclerView.Adapter<IngredientsListAdapter.IngredientsListViewHolder>{
+public class IngredientsStubListAdapter extends RecyclerView.Adapter<IngredientsStubListAdapter.IngredientsListViewHolder>{
 
-    private ArrayList<Ingredient> mIngredientsList;
+    private ArrayList<IngredientStub> mIngredientsList;
     private IngredientItemClickListener mIngredientItemClickListener;
     private Context mContext;
 
-    public IngredientsListAdapter(IngredientItemClickListener listener) {
+    public IngredientsStubListAdapter(IngredientItemClickListener listener) {
         mIngredientsList = new ArrayList<>();
         mIngredientItemClickListener = listener;
     }
 
-    public void setIngredientsList(ArrayList<Ingredient> list) {
+    public void setIngredientsList(ArrayList<IngredientStub> list) {
         mIngredientsList = list;
     }
 
@@ -56,7 +57,7 @@ public class IngredientsListAdapter extends RecyclerView.Adapter<IngredientsList
     }
 
     public interface IngredientItemClickListener {
-        void onIngredientItemClick(Ingredient ingredient);
+        void onIngredientItemClick(IngredientStub ingredient);
     }
 
     class IngredientsListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.dofukuhara.nutritionalassistant.ui.IngredientDetailsActivity">
+
+    <ProgressBar
+        android:id="@+id/pb_ingredient_details"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_padding"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_ingredient_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/default_padding"
+        android:layout_marginStart="@dimen/default_padding"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toTopOf="@+id/img_btn_favorite"
+        app:layout_constraintEnd_toStartOf="@+id/img_btn_favorite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_btn_favorite"
+        tools:text="Ingredient Name" />
+
+    <ImageButton
+        android:id="@+id/img_btn_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/default_padding"
+        android:layout_marginRight="@dimen/default_padding"
+        android:layout_marginTop="@dimen/default_padding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pb_ingredient_details"
+        app:srcCompat="@android:drawable/btn_star"
+        android:visibility="invisible"
+        android:contentDescription="@string/img_btn_favorite" />
+
+    <ScrollView
+        app:layout_constraintTop_toBottomOf="@id/tv_ingredient_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/default_padding"
+        android:paddingBottom="@dimen/default_padding"
+        android:layout_marginTop="@dimen/default_padding"
+        android:layout_marginBottom="@dimen/default_padding"
+        android:layout_marginRight="@dimen/default_padding"
+        android:layout_marginLeft="@dimen/default_padding"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" >
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Category -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_category_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_category_label"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Category value" />
+
+            <!-- Energy (Kcal) -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_energy_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_energy_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_category_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_energy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_category"
+                tools:text="Energy value" />
+
+            <!-- Protein -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_protein_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_protein_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_energy_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_protein"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_energy"
+                tools:text="Protein value" />
+
+            <!-- Lipids -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_lipids_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_lipids_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_protein_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_lipids"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_protein"
+                tools:text="Lipids value" />
+
+            <!-- Cholesterol -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_cholesterol_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_cholesterol_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_lipids_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_cholesterol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_lipids"
+                tools:text="Cholesterol value" />
+
+            <!-- Carbohydrate -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_carbohydrate_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_carbohydrate_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_cholesterol_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_carbohydrate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_cholesterol"
+                tools:text="Carbohydrate value" />
+
+            <!-- Food Fiber -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_foodFiber_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_foodFiber_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_carbohydrate_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_foodFiber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_carbohydrate"
+                tools:text="Food Fiber value" />
+
+            <!-- Ashes -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_ashes_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_ashes_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_foodFiber_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_ashes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_foodFiber"
+                tools:text="Ashes value" />
+
+            <!-- Calcium -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_calcium_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_calcium_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_ashes_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_calcium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_ashes"
+                tools:text="Calcium value" />
+
+            <!-- Magnesium -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_magnesium_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_magnesium_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_calcium_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_magnesium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_calcium"
+                tools:text="Magnesium value" />
+
+            <!-- Manganese -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_manganese_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_manganese_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_magnesium_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_manganese"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_magnesium"
+                tools:text="Manganese value" />
+
+            <!-- Phosphor -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_phosphor_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_phosphor_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_manganese_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_phosphor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_manganese"
+                tools:text="Phosphor value" />
+
+            <!-- Iron -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_iron_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_iron_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_phosphor_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_iron"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_phosphor"
+                tools:text="Iron value" />
+
+            <!-- Sodium -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_sodium_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_sodium_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_iron_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_sodium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_iron"
+                tools:text="Sodium value" />
+
+            <!-- Potassium -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_potassium_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_potassium_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_sodium_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_potassium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_sodium"
+                tools:text="Potassium value" />
+
+            <!-- Copper -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_copper_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_copper_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_potassium_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_copper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_potassium"
+                tools:text="Copper value" />
+
+            <!-- Zinc -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_zinc_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_zinc_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_copper_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_zinc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_copper"
+                tools:text="Zinc value" />
+
+            <!-- Retinol -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_retinol_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_retinol_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_zinc_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_retinol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_zinc"
+                tools:text="Retinol value" />
+
+            <!-- RE -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_re_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_re_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_retinol_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_re"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_retinol"
+                tools:text="RE value" />
+
+            <!-- RAE -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_rae_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_rae_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_re_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_rae"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_re_label"
+                tools:text="RAE value" />
+
+            <!-- Thiamine -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_thiamine_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_thiamine_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_rae_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_thiamine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_rae"
+                tools:text="Thiamine value" />
+
+            <!-- Riboflavin -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_riboflavin_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_riboflavin_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_thiamine_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_riboflavin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_thiamine"
+                tools:text="Riboflavin value" />
+
+            <!-- Pyridoxine -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_pyridoxine_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_pyridoxine_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_riboflavin_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_pyridoxine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_riboflavin"
+                tools:text="Pyridoxine value" />
+
+            <!-- Niacin -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_niacin_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_niacin_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_pyridoxine_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_niacin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_pyridoxine"
+                tools:text="Niacin value" />
+
+            <!-- Vitamin C -->
+            <TextView
+                android:id="@+id/tv_ingredient_detail_vitaminc_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ing_det_vitaminc_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_niacin_label"
+                android:visibility="invisible"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_ingredient_detail_vitaminc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ingredient_detail_niacin"
+                tools:text="Vitamin C value" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

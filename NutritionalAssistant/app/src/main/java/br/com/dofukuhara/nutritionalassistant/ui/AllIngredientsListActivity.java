@@ -1,9 +1,9 @@
 package br.com.dofukuhara.nutritionalassistant.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,16 +12,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 import br.com.dofukuhara.nutritionalassistant.R;
-import br.com.dofukuhara.nutritionalassistant.adapter.IngredientsListAdapter;
-import br.com.dofukuhara.nutritionalassistant.model.Ingredient;
+import br.com.dofukuhara.nutritionalassistant.adapter.IngredientsStubListAdapter;
+import br.com.dofukuhara.nutritionalassistant.model.IngredientStub;
 import br.com.dofukuhara.nutritionalassistant.network.TacoRestClient;
-import br.com.dofukuhara.nutritionalassistant.util.IngredientsNameComparator;
+import br.com.dofukuhara.nutritionalassistant.util.IngredientsStubNameComparator;
 import br.com.dofukuhara.nutritionalassistant.util.MenuOptionHandling;
 import br.com.dofukuhara.nutritionalassistant.util.Utils;
 import retrofit2.Call;
@@ -30,13 +29,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AllIngredientsListActivity extends AppCompatActivity implements IngredientsListAdapter.IngredientItemClickListener {
+public class AllIngredientsListActivity extends AppCompatActivity implements IngredientsStubListAdapter.IngredientItemClickListener {
 
     private ProgressBar mPbAllIngredientsList;
     private RecyclerView mRvAllIngredientsList;
 
-    private ArrayList<Ingredient> mIngredientsList;
-    private IngredientsListAdapter mIngredientsListAdapter;
+    private ArrayList<IngredientStub> mIngredientsList;
+    private IngredientsStubListAdapter mIngredientsStubListAdapter;
 
     private boolean isMobileDataAllowed;
 
@@ -84,8 +83,8 @@ public class AllIngredientsListActivity extends AppCompatActivity implements Ing
             mIngredientsList = savedInstanceState
                     .getParcelableArrayList(Utils.CONST_BUNDLE_ALL_INGREDIENTS_LIST_PARCELABLE);
 
-            mIngredientsListAdapter.setIngredientsList(mIngredientsList);
-            mRvAllIngredientsList.setAdapter(mIngredientsListAdapter);
+            mIngredientsStubListAdapter.setIngredientsList(mIngredientsList);
+            mRvAllIngredientsList.setAdapter(mIngredientsStubListAdapter);
 
         }
     }
@@ -100,7 +99,7 @@ public class AllIngredientsListActivity extends AppCompatActivity implements Ing
         mRvAllIngredientsList.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
 
-        mIngredientsListAdapter = new IngredientsListAdapter(this);
+        mIngredientsStubListAdapter = new IngredientsStubListAdapter(this);
     }
 
     private void getIngredientsFromRest() {
@@ -113,23 +112,23 @@ public class AllIngredientsListActivity extends AppCompatActivity implements Ing
 
         TacoRestClient client = retrofit.create(TacoRestClient.class);
 
-        Call<ArrayList<Ingredient>> call = client.getListOfIngredients();
+        Call<ArrayList<IngredientStub>> call = client.getListOfIngredients();
 
-        call.enqueue(new Callback<ArrayList<Ingredient>>() {
+        call.enqueue(new Callback<ArrayList<IngredientStub>>() {
             @Override
-            public void onResponse(Call<ArrayList<Ingredient>> call, Response<ArrayList<Ingredient>> response) {
+            public void onResponse(Call<ArrayList<IngredientStub>> call, Response<ArrayList<IngredientStub>> response) {
                 mPbAllIngredientsList.setVisibility(View.GONE);
 
                 mIngredientsList = response.body();
 
-                Collections.sort(mIngredientsList, new IngredientsNameComparator());
+                Collections.sort(mIngredientsList, new IngredientsStubNameComparator());
 
-                mIngredientsListAdapter.setIngredientsList(mIngredientsList);
-                mRvAllIngredientsList.setAdapter(mIngredientsListAdapter);
+                mIngredientsStubListAdapter.setIngredientsList(mIngredientsList);
+                mRvAllIngredientsList.setAdapter(mIngredientsStubListAdapter);
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Ingredient>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<IngredientStub>> call, Throwable t) {
                 mPbAllIngredientsList.setVisibility(View.GONE);
 
                 // TODO: Handle error exception
@@ -155,10 +154,10 @@ public class AllIngredientsListActivity extends AppCompatActivity implements Ing
     }
 
     @Override
-    public void onIngredientItemClick(Ingredient ingredient) {
+    public void onIngredientItemClick(IngredientStub ingredient) {
+        Intent intent = new Intent(this, IngredientDetailsActivity.class);
+        intent.putExtra(Utils.CONST_INTENT_INGREDIENT_ID, ingredient.getId());
 
-        // TODO: Handling On click event of an Ingredient
-        Toast.makeText(this, ingredient.getDescription(), Toast.LENGTH_SHORT).show();
-
+        startActivity(intent);
     }
 }

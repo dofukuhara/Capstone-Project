@@ -46,16 +46,16 @@ public class ConfigurationActivity extends AppCompatActivity {
                 Utils.SHARED_PREF_KEY, Context.MODE_PRIVATE);
 
         // If the Is Mobile Data Allowed info is persisted in Shared Pref, lets read from it!
-        if(sharedPref.contains(Utils.CONST_SHARED_PREF_IS_MOBILE_DATA_ALLOWED)) {
+        if (sharedPref.contains(Utils.CONST_SHARED_PREF_IS_MOBILE_DATA_ALLOWED)) {
             mCbIsMobileDataAllowed.setChecked(
                     sharedPref.getBoolean(Utils.CONST_SHARED_PREF_IS_MOBILE_DATA_ALLOWED,
                             false));
         }
 
         // If the Account Name is persisted in Shared Pref, lets read from it!
-        if(sharedPref.contains(Utils.CONST_SHARED_PREF_ACCOUNT_NAME_INFO)) {
+        if (sharedPref.contains(Utils.CONST_SHARED_PREF_ACCOUNT_NAME_INFO)) {
             String accountName = sharedPref.getString(Utils.CONST_SHARED_PREF_ACCOUNT_NAME_INFO, "");
-            if(!TextUtils.isEmpty(accountName)) {
+            if (!TextUtils.isEmpty(accountName)) {
                 mTvAccountName.setText(accountName);
             }
         }

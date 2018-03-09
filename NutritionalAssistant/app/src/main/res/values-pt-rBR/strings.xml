@@ -6,6 +6,7 @@
     <string name="activity_configuration">Configurações</string>
     <string name="activity_category">Lista Por Categoria</string>
     <string name="activity_all_ingredients">Lista de Todos os Ingredientes</string>
+    <string name="activity_ingredient_details">Detalhes do Ingrediente</string>
 
     // Strings comuns
     <string name="save">Salvar</string>

@@ -22,7 +22,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.ConfigurationActivity" />
-        <activity android:name=".ui.AllIngredientsListActivity"></activity>
+        <activity android:name=".ui.AllIngredientsListActivity" />
+
+        <provider
+            android:name=".data.TacoProvider"
+            android:authorities="br.com.dofukuhara.nutritionalassistant"
+            android:exported="false" />
+
+        <activity android:name=".ui.IngredientDetailsActivity"></activity>
     </application>
 
 </manifest>
