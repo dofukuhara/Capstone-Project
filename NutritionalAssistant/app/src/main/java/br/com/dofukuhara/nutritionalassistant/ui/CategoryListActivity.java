@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdView;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -21,6 +23,7 @@ import br.com.dofukuhara.nutritionalassistant.R;
 import br.com.dofukuhara.nutritionalassistant.adapter.CategoryAdapter;
 import br.com.dofukuhara.nutritionalassistant.model.Category;
 import br.com.dofukuhara.nutritionalassistant.network.TacoRestClient;
+import br.com.dofukuhara.nutritionalassistant.util.AdMobManager;
 import br.com.dofukuhara.nutritionalassistant.util.CategoriesNameComparator;
 import br.com.dofukuhara.nutritionalassistant.util.MenuOptionHandling;
 import br.com.dofukuhara.nutritionalassistant.util.Utils;
@@ -39,6 +42,8 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryA
     private CategoryAdapter mCategoryAdapter;
 
     private boolean isMobileDataAllowed;
+
+    private AdView mAdView;
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -99,6 +104,9 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryA
 
     private void layoutInitialization() {
         setTitle(R.string.activity_category);
+
+        mAdView = findViewById(R.id.adViewCategoryList);
+        mAdView.loadAd(AdMobManager.getAdRequest());
 
         mPbCategoryList = findViewById(R.id.pb_category_list);
         mRvCategoryList = findViewById(R.id.rv_category_list);

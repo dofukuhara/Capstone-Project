@@ -1,3 +1,4 @@
+.DS_STORE
 /NutritionalAssistant/*.iml
 /NutritionalAssistant/app/app.iml
 /NutritionalAssistant/.gradle
@@ -8,3 +9,4 @@
 /NutritionalAssistant/build
 /NutritionalAssistant/captures
 /NutritionalAssistant/.externalNativeBuild
+/NutritionalAssistant/gradle.properties

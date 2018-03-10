@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "451264551047",
+    "firebase_url": "https://udacity-study-191118.firebaseio.com",
+    "project_id": "udacity-study-191118",
+    "storage_bucket": "udacity-study-191118.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:451264551047:android:a4f5b1852bce37b7",
+        "android_client_info": {
+          "package_name": "br.com.dofukuhara.nutritionalassistant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "451264551047-nstu8ibr81ran9rq03kh6kqkfcbg3f5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl7jlR6315OEpcZsc2Xzg13f6lcmRED24"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

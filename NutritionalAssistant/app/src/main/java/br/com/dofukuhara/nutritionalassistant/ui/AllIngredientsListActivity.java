@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.ads.AdView;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -20,6 +22,7 @@ import br.com.dofukuhara.nutritionalassistant.R;
 import br.com.dofukuhara.nutritionalassistant.adapter.IngredientsStubListAdapter;
 import br.com.dofukuhara.nutritionalassistant.model.IngredientStub;
 import br.com.dofukuhara.nutritionalassistant.network.TacoRestClient;
+import br.com.dofukuhara.nutritionalassistant.util.AdMobManager;
 import br.com.dofukuhara.nutritionalassistant.util.IngredientsStubNameComparator;
 import br.com.dofukuhara.nutritionalassistant.util.MenuOptionHandling;
 import br.com.dofukuhara.nutritionalassistant.util.Utils;
@@ -38,6 +41,8 @@ public class AllIngredientsListActivity extends AppCompatActivity implements Ing
     private IngredientsStubListAdapter mIngredientsStubListAdapter;
 
     private boolean isMobileDataAllowed;
+
+    private AdView mAdView;
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -91,6 +96,9 @@ public class AllIngredientsListActivity extends AppCompatActivity implements Ing
 
     private void layoutInitialization() {
         setTitle(R.string.activity_all_ingredients);
+
+        mAdView = findViewById(R.id.adViewAllIngredientsList);
+        mAdView.loadAd(AdMobManager.getAdRequest());
 
         mPbAllIngredientsList = findViewById(R.id.pb_all_ingredients_list);
         mRvAllIngredientsList = findViewById(R.id.rv_all_ingredients_list);

@@ -1,5 +1,7 @@
 package br.com.dofukuhara.nutritionalassistant.util;
 
+import br.com.dofukuhara.nutritionalassistant.BuildConfig;
+
 /**
  * Created by dofukuhara on 14/02/2018.
  */
@@ -31,4 +33,7 @@ public final class Utils {
     // AllIngredientsListActivity - IngredientsList Parcelable
     public static final String CONST_BUNDLE_ALL_INGREDIENTS_LIST_PARCELABLE =
             "const_bundle_all_ingredients_list_parcelable";
+    // IngredientDetailsActivity - Ingredient Parcelable
+    public static final String CONST_BUNDLE_INGREDIENT_PARCELABLE =
+            "const_bundle_ingredient_parcelable";
 }

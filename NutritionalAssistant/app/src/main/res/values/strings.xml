@@ -59,4 +59,9 @@
     <string name="ing_det_niacin_label">Niacin:</string>
     <string name="ing_det_vitaminc_label">Vitamin C:</string>
 
+<!--
+    <string name="banner_ad_unit_id">ca-app-pub-5007360584192599/944378689</string>
+    <string name="banner_ad_unit_id">ca-app-pub-5007360584192599/7720050809</string>
+-->
+
 </resources>
