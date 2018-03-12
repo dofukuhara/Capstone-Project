@@ -1,6 +1,5 @@
 package br.com.dofukuhara.nutritionalassistant.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -10,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
@@ -32,15 +30,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class IngredientDetailsActivity extends AppCompatActivity {
 
-    private Context mContext;
     private int mIngredientId;
     private ArrayList<Ingredient> mIngredientList;
     private Ingredient mIngredient;
 
     private AdView mAdView;
-
-    @BindView(R.id.sv_ingredients_details)
-    ScrollView mSvIngredientsDetails;
 
     @BindView(R.id.cl_ingredient_details)
     ConstraintLayout mClIngredientDetails;
@@ -158,7 +152,6 @@ public class IngredientDetailsActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        mContext = this;
         setTitle(getString(R.string.activity_ingredient_details));
 
         mAdView = findViewById(R.id.adViewIngredientDetails);
@@ -239,7 +232,7 @@ public class IngredientDetailsActivity extends AppCompatActivity {
         mTvIngredientNiacin.setText(mIngredient.getNiacin());
         mTvIngredientVitaC.setText(mIngredient.getVitaminC());
 
-        mSvIngredientsDetails.setVisibility(View.VISIBLE);
+        mImgBtnFavorite.setVisibility(View.VISIBLE);
         mClIngredientDetails.setVisibility(View.VISIBLE);
     }
 
