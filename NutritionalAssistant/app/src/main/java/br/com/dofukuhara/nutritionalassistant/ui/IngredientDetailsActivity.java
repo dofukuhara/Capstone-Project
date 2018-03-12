@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
@@ -37,6 +38,9 @@ public class IngredientDetailsActivity extends AppCompatActivity {
     private Ingredient mIngredient;
 
     private AdView mAdView;
+
+    @BindView(R.id.sv_ingredients_details)
+    ScrollView mSvIngredientsDetails;
 
     @BindView(R.id.cl_ingredient_details)
     ConstraintLayout mClIngredientDetails;
@@ -235,6 +239,7 @@ public class IngredientDetailsActivity extends AppCompatActivity {
         mTvIngredientNiacin.setText(mIngredient.getNiacin());
         mTvIngredientVitaC.setText(mIngredient.getVitaminC());
 
+        mSvIngredientsDetails.setVisibility(View.VISIBLE);
         mClIngredientDetails.setVisibility(View.VISIBLE);
     }
 

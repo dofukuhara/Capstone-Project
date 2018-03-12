@@ -56,7 +56,9 @@
         android:layout_marginLeft="@dimen/default_padding"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/adViewIngredientDetails">
+        app:layout_constraintBottom_toTopOf="@+id/adViewIngredientDetails"
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/cl_ingredient_details"
@@ -64,7 +66,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/black"
             android:visibility="invisible"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <!-- Category -->
             <TextView
