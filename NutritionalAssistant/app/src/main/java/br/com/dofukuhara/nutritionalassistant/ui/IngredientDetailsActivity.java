@@ -129,6 +129,9 @@ public class IngredientDetailsActivity extends AppCompatActivity {
     @BindView(R.id.tv_ingredient_detail_vitaminc)
     TextView mTvIngredientVitaC;
 
+    @BindView(R.id.tv_composition_info_label)
+    TextView mTvCompositionInfoLabel;
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         if (mIngredient != null) {
@@ -257,6 +260,7 @@ public class IngredientDetailsActivity extends AppCompatActivity {
         // After getting all the information from the Ingredient, lets unhide the view and show to the user
         mImgBtnFavorite.setVisibility(View.VISIBLE);
         mClIngredientDetails.setVisibility(View.VISIBLE);
+        mTvCompositionInfoLabel.setVisibility(View.VISIBLE);
 
         // Set the Click Listener for the Favorite icon
         setFavoriteButtonListener();

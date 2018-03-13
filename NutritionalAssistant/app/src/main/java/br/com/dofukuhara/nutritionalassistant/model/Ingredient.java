@@ -2,8 +2,12 @@ package br.com.dofukuhara.nutritionalassistant.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 import com.google.gson.annotations.SerializedName;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by dofukuhara on 15/02/2018.
@@ -155,7 +159,7 @@ public class Ingredient implements Parcelable {
     }
 
     public String getUmity() {
-        return umity;
+        return handleEmptyString(umity);
     }
 
     public Energy getEnergy() {
@@ -163,103 +167,103 @@ public class Ingredient implements Parcelable {
     }
 
     public String getEnergyKcal() {
-        return energy.kcal;
+        return handleEmptyString(energy.kcal);
     }
 
     public String getEnergyKj() {
-        return energy.kj;
+        return handleEmptyString(energy.kj);
     }
 
     public String getProtein() {
-        return protein;
+        return handleEmptyString(protein);
     }
 
     public String getLipids() {
-        return lipids;
+        return handleEmptyString(lipids);
     }
 
     public String getCholesterol() {
-        return cholesterol;
+        return handleEmptyString(cholesterol);
     }
 
     public String getCarbohydrate() {
-        return carbohydrate;
+        return handleEmptyString(carbohydrate);
     }
 
     public String getFoodFiber() {
-        return foodFiber;
+        return handleEmptyString(foodFiber);
     }
 
     public String getAshes() {
-        return ashes;
+        return handleEmptyString(ashes);
     }
 
     public String getCalcium() {
-        return calcium;
+        return handleEmptyString(calcium);
     }
 
     public String getMagnesium() {
-        return magnesium;
+        return handleEmptyString(magnesium);
     }
 
     public String getManganese() {
-        return manganese;
+        return handleEmptyString(manganese);
     }
 
     public String getPhosphor() {
-        return phosphor;
+        return handleEmptyString(phosphor);
     }
 
     public String getIron() {
-        return iron;
+        return handleEmptyString(iron);
     }
 
     public String getSodium() {
-        return sodium;
+        return handleEmptyString(sodium);
     }
 
     public String getPotassium() {
-        return potassium;
+        return handleEmptyString(potassium);
     }
 
     public String getCopper() {
-        return copper;
+        return handleEmptyString(copper);
     }
 
     public String getZinc() {
-        return zinc;
+        return handleEmptyString(zinc);
     }
 
     public String getRetinol() {
-        return retinol;
+        return handleEmptyString(retinol);
     }
 
     public String getRe() {
-        return re;
+        return handleEmptyString(re);
     }
 
     public String getRae() {
-        return rae;
+        return handleEmptyString(rae);
     }
 
     public String getThiamine() {
-        return thiamine;
+        return handleEmptyString(thiamine);
     }
 
     public String getRiboflavin() {
-        return riboflavin;
+        return handleEmptyString(riboflavin);
     }
 
     public String getPyridoxine() {
-        return pyridoxine;
+        return handleEmptyString(pyridoxine);
     }
 
     public String getNiacin() {
-        return niacin;
+        return handleEmptyString(niacin);
     }
 
     public String getVitaminC() {
-        return vitaminC;
+        return handleEmptyString(vitaminC);
     }
 
     @Override
@@ -311,6 +315,25 @@ public class Ingredient implements Parcelable {
         protected Energy(String kcal, String kj) {
             this.kcal = kcal;
             this.kj = kj;
+        }
+    }
+
+    private String handleEmptyString(String value) {
+        // If the value is EMPTY, just return a dash
+        if (TextUtils.isEmpty(value) ) {
+            return "-";
+        } else {
+            // Else, lets check if is in a float format
+            Pattern pattern = Pattern.compile("^\\d*.\\d*$");
+            Matcher matcher = pattern.matcher(value);
+
+            if (!matcher.matches()) {
+                // If it is not a floating styled String, just return it...
+                return value;
+            } else {
+                // ... otherwise, we will print it rounded with 2-digits decimal
+                return String.format("%.2f", Float.valueOf(value));
+            }
         }
     }
 

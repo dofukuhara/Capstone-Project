@@ -9,14 +9,14 @@
     </style>
 
     <style name="ingredient_detail_table_like">
-        <item name="android:background">@android:color/white</item>
+        <item name="android:background">?android:colorBackground</item>
         <item name="android:layout_marginTop">@dimen/marging_line</item>
         <item name="android:paddingLeft">8dp</item>
         <item name="android:paddingRight">8dp</item>
     </style>
 
     <style name="ingredient_detail_table_like_last">
-        <item name="android:background">@android:color/white</item>
+        <item name="android:background">?android:colorBackground</item>
         <item name="android:layout_marginTop">@dimen/marging_line</item>
         <item name="android:layout_marginBottom">@dimen/marging_line</item>
         <item name="android:paddingLeft">8dp</item>

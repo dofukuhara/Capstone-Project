@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@id/pb_ingredient_details"
         app:srcCompat="@android:drawable/btn_star"
         android:visibility="invisible"
-        android:background="@android:color/white"
+        android:background="?android:colorBackground"
         tools:visibility="visible"
         android:contentDescription="@string/img_btn_favorite" />
 
@@ -53,12 +53,11 @@
         android:paddingTop="@dimen/default_padding"
         android:paddingBottom="@dimen/default_padding"
         android:layout_marginTop="@dimen/default_padding"
-        android:layout_marginBottom="@dimen/default_padding"
         android:layout_marginRight="@dimen/default_padding"
         android:layout_marginLeft="@dimen/default_padding"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/adViewIngredientDetails">
+        app:layout_constraintBottom_toTopOf="@+id/tv_composition_info_label">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/cl_ingredient_details"
@@ -599,6 +598,22 @@
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_composition_info_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_padding"
+        android:layout_marginBottom="@dimen/default_padding"
+        android:layout_marginRight="@dimen/default_padding"
+        android:layout_marginLeft="@dimen/default_padding"
+        android:text="@string/ingredient_compose_info"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/adViewIngredientDetails"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="invisible"
+        tools:visibility="visible"/>
 
 
     <com.google.android.gms.ads.AdView
