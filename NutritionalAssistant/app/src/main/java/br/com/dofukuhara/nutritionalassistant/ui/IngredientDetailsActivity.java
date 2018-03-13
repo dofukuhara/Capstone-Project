@@ -1,6 +1,11 @@
 package br.com.dofukuhara.nutritionalassistant.ui;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.ActionBar;
@@ -10,12 +15,14 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 
 import br.com.dofukuhara.nutritionalassistant.R;
+import br.com.dofukuhara.nutritionalassistant.data.FavoriteContract;
 import br.com.dofukuhara.nutritionalassistant.model.Ingredient;
 import br.com.dofukuhara.nutritionalassistant.network.TacoRestClient;
 import br.com.dofukuhara.nutritionalassistant.util.AdMobManager;
@@ -30,6 +37,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class IngredientDetailsActivity extends AppCompatActivity {
 
+    private Context mContext;
     private int mIngredientId;
     private ArrayList<Ingredient> mIngredientList;
     private Ingredient mIngredient;
@@ -144,6 +152,8 @@ public class IngredientDetailsActivity extends AppCompatActivity {
             finish();
         }
 
+        mContext = this;
+
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -232,8 +242,77 @@ public class IngredientDetailsActivity extends AppCompatActivity {
         mTvIngredientNiacin.setText(mIngredient.getNiacin());
         mTvIngredientVitaC.setText(mIngredient.getVitaminC());
 
+        // Set if how the Favorite icon (star) should be displayed (On or Off)
+        ContentResolver cr = getContentResolver();
+        Cursor checkForIngredientInProviderCursor = cr.query(FavoriteContract.FavoriteEntry.CONTENT_URI,
+                null,FavoriteContract.FavoriteEntry.COLUMN_FAVORITE_ID + "=?",
+                new String[] {String.valueOf(mIngredientId)}, null);
+
+        if (checkForIngredientInProviderCursor.moveToFirst()) {
+            mImgBtnFavorite.setImageResource(android.R.drawable.btn_star_big_on);
+        } else {
+            mImgBtnFavorite.setImageResource(android.R.drawable.btn_star_big_off);
+        }
+
+        // After getting all the information from the Ingredient, lets unhide the view and show to the user
         mImgBtnFavorite.setVisibility(View.VISIBLE);
         mClIngredientDetails.setVisibility(View.VISIBLE);
+
+        // Set the Click Listener for the Favorite icon
+        setFavoriteButtonListener();
+    }
+
+    private void setFavoriteButtonListener() {
+        // This Listener will be used in order to either INSERT or DELETE the Ingredient from
+        // favorite TABLE
+        mImgBtnFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // First, lets check if the Ingredient is already inserted in the DB
+                ContentResolver cr = getContentResolver();
+                Cursor checkForIngredientInProviderCursor = cr.query(FavoriteContract.FavoriteEntry.CONTENT_URI,
+                        null,FavoriteContract.FavoriteEntry.COLUMN_FAVORITE_ID + "=?",
+                        new String[] {String.valueOf(mIngredientId)}, null);
+
+                // Populate the ContentValue with Ingredient ID
+                ContentValues ingredientToFav = new ContentValues();
+                ingredientToFav.put(FavoriteContract.FavoriteEntry.COLUMN_FAVORITE_ID, mIngredientId);
+
+                if (checkForIngredientInProviderCursor.moveToFirst()) {
+                    // If the Ingredient is presented in the DB, lets perform a DELETE operation...
+                    int numberOfDeletion = cr.delete(FavoriteContract.FavoriteEntry.CONTENT_URI,
+                            FavoriteContract.FavoriteEntry.COLUMN_FAVORITE_ID + "=?",
+                            new String[] {String.valueOf(mIngredientId)});
+
+                    // .. and notify the user the operation result, as well as update the Favorite Icon image
+                    if (numberOfDeletion > 0) {
+                        mImgBtnFavorite.setImageResource(android.R.drawable.btn_star_big_off);
+                        showToastMessage(R.string.rem_from_fav_success);
+                    } else {
+                        showToastMessage(R.string.rem_from_fav_fail);
+                    }
+
+                } else {
+                    // If the Ingredient is not presented in the DB, lets perform an INSERT operation...
+                    Uri uri = cr.insert(FavoriteContract.FavoriteEntry.CONTENT_URI, ingredientToFav);
+
+                    // .. and notify the user the operation result, as well as update the Favorite Icon image
+                    if (uri != null) {
+                        mImgBtnFavorite.setImageResource(android.R.drawable.btn_star_big_on);
+                        showToastMessage(R.string.save_to_fav_success);
+                    } else {
+                        showToastMessage(R.string.save_to_fav_fail);
+                    }
+                }
+
+            }
+
+        });
+    }
+
+    private void showToastMessage(int messageId) {
+        Toast.makeText(mContext, mContext.getString(messageId), Toast.LENGTH_SHORT).show();
     }
 
     private void showLoadingBar(boolean toBeShown) {

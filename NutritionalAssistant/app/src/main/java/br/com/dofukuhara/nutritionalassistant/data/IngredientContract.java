@@ -3,14 +3,15 @@ package br.com.dofukuhara.nutritionalassistant.data;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+import br.com.dofukuhara.nutritionalassistant.util.Utils;
+
 /**
  * Created by dofukuhara on 19/02/2018.
  */
 
 public class IngredientContract {
 
-    public static final String AUTORITHY = "br.com.dofukuhara.nutritionalassistant";
-    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTORITHY);
+    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + Utils.AUTHORITY);
     public static final String INGREDIENT_PATH = "ingredient";
 
     public static final class IngredientEntry implements BaseColumns {

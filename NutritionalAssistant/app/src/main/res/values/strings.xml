@@ -58,6 +58,10 @@
     <string name="ing_det_pyridoxine_label">Pyridoxine:</string>
     <string name="ing_det_niacin_label">Niacin:</string>
     <string name="ing_det_vitaminc_label">Vitamin C:</string>
+    <string name="save_to_fav_success">Successfully saved this ingredient in the Favorite List!</string>
+    <string name="save_to_fav_fail">Failed to save this ingredient in the Favorite List :(</string>
+    <string name="rem_from_fav_success">Successfully removed this ingredient from the Favorite List!</string>
+    <string name="rem_from_fav_fail">Failed to remove this ingreient from the Favorite List :(</string>
 
 <!--
     <string name="banner_ad_unit_id">ca-app-pub-5007360584192599/944378689</string>

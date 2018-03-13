@@ -21,6 +21,11 @@ public class TacoDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        final String createFavoriteTable = "CREATE TABLE " + FavoriteContract.FavoriteEntry.TABLE_NAME + " (" +
+                FavoriteContract.FavoriteEntry._ID + " INTEGER PRIMARY KEY, " +
+                FavoriteContract.FavoriteEntry.COLUMN_FAVORITE_ID + " INTEGER NOT NULL);";
+        db.execSQL(createFavoriteTable);
+
         final String createCategoryTable = "CREATE TABLE " + CategoryContract.CategoryEntry.TABLE_NAME + " (" +
                 CategoryContract.CategoryEntry._ID + " INTEGER PRIMARY KEY, " +
                 CategoryContract.CategoryEntry.COLUMN_CATEGORY_ID + " INTEGER NOT NULL, " +
@@ -33,7 +38,7 @@ public class TacoDBHelper extends SQLiteOpenHelper {
         final String createIngredientTable = "CREATE TABLE " + IngredientContract.IngredientEntry.TABLE_NAME + " (" +
                 IngredientContract.IngredientEntry._ID + " INTEGER PRIMARY KEY, " +
                 IngredientContract.IngredientEntry.COLUMN_INGREDIENT_ID + " INTEGER NOT NULL, " +
-                IngredientContract.IngredientEntry.COLUMN_INGREDIENT_ID + " TEXT, " +
+//                IngredientContract.IngredientEntry.COLUMN_INGREDIENT_ID + " TEXT, " +
                 IngredientContract.IngredientEntry.COLUMN_INGREDIENT_DESCRIPT + " TEXT, " +
                 IngredientContract.IngredientEntry.COLUMN_INGREDIENT_CLASSIF + " TEXT, " +
                 IngredientContract.IngredientEntry.COLUMN_INGREDIENT_UMITY + " TEXT, " +

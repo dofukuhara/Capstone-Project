@@ -30,7 +30,7 @@
     <string name="config_account">"Conta Configurada: "</string>
     <string name="configuration_not_saved">A configuração não foi salva...</string>
 
-    // Strings for Ingredient Details Activity
+    // Strings para Activity de Detalhes do Ingrediente
     <string name="img_btn_favorite">Botão para salvar o ingrediente na lista de favoritos!</string>
     <string name="ing_det_category_label">Categoria:</string>
     <string name="ing_det_energy_label">Energia (Kcal):</string>
@@ -57,5 +57,9 @@
     <string name="ing_det_pyridoxine_label">Piridoxina:</string>
     <string name="ing_det_niacin_label">Niacina:</string>
     <string name="ing_det_vitaminc_label">Vitamina C:</string>
+    <string name="save_to_fav_success">Ingrediente salvo com sucesso na Lista de Favoritos!</string>
+    <string name="save_to_fav_fail">Tivemos um probleminha em salvar esse ingrediente na Lista de Favoritos :(</string>
+    <string name="rem_from_fav_success">Ingrediente removido com sucesso da Lista de Favoritos!</string>
+    <string name="rem_from_fav_fail">Tivemos um probleming em remover esse ingrediente da Lista de Favoritos :(</string>
 
 </resources>

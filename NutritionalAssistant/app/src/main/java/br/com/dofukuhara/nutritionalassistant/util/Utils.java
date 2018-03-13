@@ -36,4 +36,7 @@ public final class Utils {
     // IngredientDetailsActivity - Ingredient Parcelable
     public static final String CONST_BUNDLE_INGREDIENT_PARCELABLE =
             "const_bundle_ingredient_parcelable";
+
+    // ContentProvider Authority address
+    public static final String AUTHORITY = "br.com.dofukuhara.nutritionalassistant";
 }
