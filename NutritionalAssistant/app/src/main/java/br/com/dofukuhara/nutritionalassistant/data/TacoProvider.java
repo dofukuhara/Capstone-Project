@@ -26,7 +26,8 @@ public class TacoProvider extends ContentProvider {
     public static final int FAVORITES = 100;
     public static final int FAVORITE_WITH_ID = 101;
     public static final int CATEGORIES = 200;
-    public static final int CATEGORY_WITH_ID = 201;
+    public static final int CATEGORY_WITH_ROW_ID = 201;
+    public static final int CATEGORY_WITH_CATEGORY_ID = 202;
     public static final int INGREDIENTS = 300;
     public static final int INGREDIENT_WITH_ID = 301;
 
@@ -40,7 +41,8 @@ public class TacoProvider extends ContentProvider {
         matcher.addURI(Utils.AUTHORITY, FavoriteContract.FAVORITE_PATH, FAVORITES);
         matcher.addURI(Utils.AUTHORITY, FavoriteContract.FAVORITE_PATH + "/#", FAVORITE_WITH_ID);
         matcher.addURI(Utils.AUTHORITY, CategoryContract.CATEGORY_PATH, CATEGORIES);
-        matcher.addURI(Utils.AUTHORITY, CategoryContract.CATEGORY_PATH + "/#", CATEGORY_WITH_ID);
+        matcher.addURI(Utils.AUTHORITY, CategoryContract.CATEGORY_PATH + "/#", CATEGORY_WITH_CATEGORY_ID);
+        matcher.addURI(Utils.AUTHORITY, CategoryContract.CATEGORY_ROW_PATH + "/#", CATEGORY_WITH_ROW_ID);
         matcher.addURI(Utils.AUTHORITY, IngredientContract.INGREDIENT_PATH, INGREDIENTS);
         matcher.addURI(Utils.AUTHORITY, IngredientContract.INGREDIENT_PATH + "/#", INGREDIENT_WITH_ID);
 
@@ -60,22 +62,45 @@ public class TacoProvider extends ContentProvider {
         final SQLiteDatabase db = mTacoDBHelper.getReadableDatabase();
 
         Cursor retCursor;
+        String id;
 
         switch (sUriMater.match(uri)) {
             case FAVORITES:
                 retCursor = db.query(FavoriteContract.FavoriteEntry.TABLE_NAME,
                         projections, selection, selectionArgs,
                         null, null, sortOrder);
-
                 break;
+
             case FAVORITE_WITH_ID:
-                String id = uri.getPathSegments().get(1);
+                id = uri.getPathSegments().get(1);
 
                 retCursor = db.query(FavoriteContract.FavoriteEntry.TABLE_NAME, projections,
                         FavoriteContract.FavoriteEntry._ID + "=?", new String[] {id},
                         null, null, sortOrder);
-
                 break;
+
+            case CATEGORIES:
+                retCursor = db.query(CategoryContract.CategoryEntry.TABLE_NAME,
+                        projections, selection, selectionArgs,
+                        null, null, sortOrder);
+                break;
+
+            case CATEGORY_WITH_ROW_ID:
+                id = uri.getPathSegments().get(1);
+
+                retCursor = db.query(CategoryContract.CategoryEntry.TABLE_NAME, projections,
+                        CategoryContract.CategoryEntry._ID + "=?", new String[] {id},
+                        null, null, sortOrder);
+                break;
+
+            case CATEGORY_WITH_CATEGORY_ID:
+                id = uri.getPathSegments().get(1);
+
+                retCursor = db.query(CategoryContract.CategoryEntry.TABLE_NAME, projections,
+                        CategoryContract.CategoryEntry.COLUMN_CATEGORY_ID + "=?", new String[] {id},
+                        null, null, sortOrder);
+                break;
+
             default:
                 throw new UnsupportedOperationException("Unknown URI: " + uri);
         }
@@ -90,22 +115,25 @@ public class TacoProvider extends ContentProvider {
     public String getType(@NonNull Uri uri) {
         switch (sUriMater.match(uri)) {
             case FAVORITES:
-                return "vnd.android.cursor.item/vnd.br.com.dofukuhara.nutritionalassistant.favorite";
-
-            case FAVORITE_WITH_ID:
                 return "vnd.android.cursor.dir/vnd.br.com.dofukuhara.nutritionalassistant.favorite";
 
-            case CATEGORIES:
-                return "vnd.android.cursor.item/vnd.br.com.dofukuhara.nutritionalassistant.category";
+            case FAVORITE_WITH_ID:
+                return "vnd.android.cursor.item/vnd.br.com.dofukuhara.nutritionalassistant.favorite";
 
-            case CATEGORY_WITH_ID:
+            case CATEGORIES:
                 return "vnd.android.cursor.dir/vnd.br.com.dofukuhara.nutritionalassistant.category";
 
+            case CATEGORY_WITH_ROW_ID:
+                return "vnd.android.cursor.item/vnd.br.com.dofukuhara.nutritionalassistant.category/row";
+
+            case CATEGORY_WITH_CATEGORY_ID:
+                return "vnd.android.cursor.item/vnd.br.com.dofukuhara.nutritionalassistant.category";
+
             case INGREDIENTS:
-                return "vnd.android.cursor.item/vnd.br.com.dofukuhara.nutritionalassistant.ingredient";
+                return "vnd.android.cursor.dir/vnd.br.com.dofukuhara.nutritionalassistant.ingredient";
 
             case INGREDIENT_WITH_ID:
-                return "vnd.android.cursor.dir/vnd.br.com.dofukuhara.nutritionalassistant.ingredient";
+                return "vnd.android.cursor.item/vnd.br.com.dofukuhara.nutritionalassistant.ingredient";
 
             default:
                 throw new UnsupportedOperationException("Unknown URI: " + uri);
@@ -130,9 +158,20 @@ public class TacoProvider extends ContentProvider {
                 }
                 break;
 
+            case CATEGORIES:
+                long newCategId = db.insert(CategoryContract.CategoryEntry.TABLE_NAME,
+                        null, contentValues);
+                if (newCategId < 0) {
+                    throw new SQLException("Failed to insert Favorite into: " + uri);
+                } else {
+                    retUri = ContentUris.withAppendedId(CategoryContract.CategoryEntry.CONTENT_URI, newCategId);
+                }
+                break;
+
+            case CATEGORY_WITH_ROW_ID:
+            case CATEGORY_WITH_CATEGORY_ID:
             case FAVORITE_WITH_ID:
 
-                // TODO: Probably this won't be used!!!
             default:
                 throw new UnsupportedOperationException("Unknown URI: " + uri);
         }
@@ -158,6 +197,11 @@ public class TacoProvider extends ContentProvider {
                 retDeletedId = db.delete(FavoriteContract.FavoriteEntry.TABLE_NAME,
                         where, whereArgs);
                 break;
+
+            // TODO: Check if Category DELETE operation should be implementer or not
+            case CATEGORIES:
+            case CATEGORY_WITH_ROW_ID:
+            case CATEGORY_WITH_CATEGORY_ID:
 
             default:
                 throw new UnsupportedOperationException("Unknown URI: " + uri);

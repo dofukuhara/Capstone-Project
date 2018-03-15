@@ -13,6 +13,7 @@ public class CategoryContract {
 
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + Utils.AUTHORITY);
     public static final String CATEGORY_PATH = "category";
+    public static final String CATEGORY_ROW_PATH = CATEGORY_PATH + "/row";
 
     public static final class CategoryEntry implements BaseColumns {
         public static final Uri CONTENT_URI =

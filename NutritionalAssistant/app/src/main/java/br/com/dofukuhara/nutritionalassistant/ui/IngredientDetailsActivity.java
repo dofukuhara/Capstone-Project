@@ -1,6 +1,7 @@
 package br.com.dofukuhara.nutritionalassistant.ui;
 
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import com.google.android.gms.ads.AdView;
 import java.util.ArrayList;
 
 import br.com.dofukuhara.nutritionalassistant.R;
+import br.com.dofukuhara.nutritionalassistant.data.CategoryContract;
 import br.com.dofukuhara.nutritionalassistant.data.FavoriteContract;
 import br.com.dofukuhara.nutritionalassistant.model.Ingredient;
 import br.com.dofukuhara.nutritionalassistant.network.TacoRestClient;
@@ -218,8 +220,16 @@ public class IngredientDetailsActivity extends AppCompatActivity {
 
     private void setLayoutComponent() {
         mTvIngredientName.setText(mIngredient.getDescription());
-        // TODO: Change Classification from number to a correct correlation
-        mTvIngredientCat.setText(mIngredient.getClassification());
+
+        Uri uri = ContentUris.withAppendedId(CategoryContract.CategoryEntry.CONTENT_URI,
+                Long.valueOf(mIngredient.getClassification()));
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        String classification = "-";
+        if(cursor.moveToFirst()) {
+            classification = cursor.getString(cursor.getColumnIndex(CategoryContract.CategoryEntry.COLUMN_CATEGORY_NAME));
+        }
+
+        mTvIngredientCat.setText(classification);
         mTvIngredientEnergy.setText(mIngredient.getEnergyKcal());
         mTvIngredientProt.setText(mIngredient.getProtein());
         mTvIngredientLipids.setText(mIngredient.getLipids());

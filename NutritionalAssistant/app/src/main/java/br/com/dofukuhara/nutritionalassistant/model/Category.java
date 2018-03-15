@@ -17,6 +17,11 @@ public class Category implements Parcelable{
     @SerializedName("categoria")
     private String category;
 
+    public Category(int id, String category) {
+        this.id = id;
+        this.category = category;
+    }
+
     private Category(Parcel in) {
         id = in.readInt();
         category = in.readString();
@@ -52,4 +57,5 @@ public class Category implements Parcelable{
     public String getCategoryName() {
         return this.category.trim();
     }
+
 }

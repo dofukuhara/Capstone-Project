@@ -1,6 +1,12 @@
 package br.com.dofukuhara.nutritionalassistant.util;
 
+import android.database.Cursor;
+
+import java.util.ArrayList;
+
 import br.com.dofukuhara.nutritionalassistant.BuildConfig;
+import br.com.dofukuhara.nutritionalassistant.data.CategoryContract;
+import br.com.dofukuhara.nutritionalassistant.model.Category;
 
 /**
  * Created by dofukuhara on 14/02/2018.
@@ -39,4 +45,23 @@ public final class Utils {
 
     // ContentProvider Authority address
     public static final String AUTHORITY = "br.com.dofukuhara.nutritionalassistant";
+
+    // Function that receives a Cursor and return a List of Categories
+    public static final ArrayList<Category> cursorToCategoryArrayList(Cursor cursor) {
+        ArrayList<Category> categoryList = new ArrayList<>();
+        Category category;
+        int categId;
+        String categName;
+
+        while (cursor.moveToNext()) {
+            categId = cursor.getInt(cursor.getColumnIndex(CategoryContract.CategoryEntry.COLUMN_CATEGORY_ID));
+            categName = cursor.getString(cursor.getColumnIndex(CategoryContract.CategoryEntry.COLUMN_CATEGORY_NAME));
+
+            category = new Category(categId, categName);
+
+            categoryList.add(category);
+        }
+
+        return categoryList;
+    }
 }

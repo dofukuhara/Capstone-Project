@@ -1,8 +1,11 @@
 package br.com.dofukuhara.nutritionalassistant.ui;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +24,7 @@ import java.util.Collections;
 
 import br.com.dofukuhara.nutritionalassistant.R;
 import br.com.dofukuhara.nutritionalassistant.adapter.CategoryAdapter;
+import br.com.dofukuhara.nutritionalassistant.data.CategoryContract;
 import br.com.dofukuhara.nutritionalassistant.model.Category;
 import br.com.dofukuhara.nutritionalassistant.network.TacoRestClient;
 import br.com.dofukuhara.nutritionalassistant.util.AdMobManager;
@@ -88,8 +92,30 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryA
                     !savedInstanceState.containsKey(Utils.CONST_BUNDLE_CATEGORY_LIST_PARCELABLE)) {
                 // If the list is not presented in the Bundle, lets get it from Content Provider
                 // or via Rest
-                // TODO: Query via Content Provider in case that the user did not allowed network in Mobile Data
-                getCategoryFromRest();
+                // TODO: (1) Query via Content Provider in case that the user did not allowed network in Mobile Data
+                // TODO: (2) Check the case where we need to refresh the content of Category info in the Provider
+
+                // Query Content Provider for Categories stored on it
+                Cursor cursor = getContentResolver().query(
+                        CategoryContract.CategoryEntry.CONTENT_URI, null,null, null,null);
+
+                // Get an ArrayList of Category from a cursor
+                mCategoryList = Utils.cursorToCategoryArrayList(cursor);
+                cursor.close();
+
+                if (mCategoryList.size() == 0) {
+                    // In case that the list is empty, we need to fetch the data from the internet
+                    // TODO: need to check if we are using Mobile Data and if user allowed us to do so
+                    getCategoryFromRest();
+                } else {
+                    // In case that the data was found in the provider...
+                    // ... lets sort it alphabetically first
+                    Collections.sort(mCategoryList, new CategoriesNameComparator());
+                    // ... and them display it to the user
+                    mCategoryAdapter.setCategoryList(mCategoryList);
+                    mRvCategoryList.setAdapter(mCategoryAdapter);
+                }
+
             } else {
                 // In case that the screen was rotated, we can recover the list from Bundle
                 mCategoryList = savedInstanceState
@@ -97,7 +123,6 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryA
 
                 mCategoryAdapter.setCategoryList(mCategoryList);
                 mRvCategoryList.setAdapter(mCategoryAdapter);
-
             }
         }
     }
@@ -138,6 +163,21 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryA
                 mCategoryList = response.body();
 
                 Collections.sort(mCategoryList, new CategoriesNameComparator());
+
+                // Saving the content of the Downloaded data in the provider in another Thread
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ContentResolver cr = getContentResolver();
+                        for (Category category : mCategoryList) {
+                            ContentValues cv = new ContentValues();
+                            cv.put(CategoryContract.CategoryEntry.COLUMN_CATEGORY_ID, category.getId());
+                            cv.put(CategoryContract.CategoryEntry.COLUMN_CATEGORY_NAME, category.getCategoryName());
+
+                            cr.insert(CategoryContract.CategoryEntry.CONTENT_URI, cv);
+                        }
+                    }
+                }).start();
 
                 mCategoryAdapter.setCategoryList(mCategoryList);
                 mRvCategoryList.setAdapter(mCategoryAdapter);
