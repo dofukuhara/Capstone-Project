@@ -4,7 +4,6 @@ import android.database.Cursor;
 
 import java.util.ArrayList;
 
-import br.com.dofukuhara.nutritionalassistant.BuildConfig;
 import br.com.dofukuhara.nutritionalassistant.data.CategoryContract;
 import br.com.dofukuhara.nutritionalassistant.model.Category;
 

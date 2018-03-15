@@ -21,7 +21,7 @@ public class TacoProvider extends ContentProvider {
 
     // TODO: Implement ContentProvider for:
     // --> Favorite: OK
-    // --> Category:
+    // --> Category: OK
     // --> Ingredient:
     public static final int FAVORITES = 100;
     public static final int FAVORITE_WITH_ID = 101;
@@ -86,8 +86,7 @@ public class TacoProvider extends ContentProvider {
                 break;
 
             case CATEGORY_WITH_ROW_ID:
-                id = uri.getPathSegments().get(1);
-
+                id = uri.getPathSegments().get(2);
                 retCursor = db.query(CategoryContract.CategoryEntry.TABLE_NAME, projections,
                         CategoryContract.CategoryEntry._ID + "=?", new String[] {id},
                         null, null, sortOrder);
