@@ -1,8 +1,11 @@
 package br.com.dofukuhara.nutritionalassistant.ui;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +23,7 @@ import java.util.Collections;
 
 import br.com.dofukuhara.nutritionalassistant.R;
 import br.com.dofukuhara.nutritionalassistant.adapter.IngredientsStubListAdapter;
+import br.com.dofukuhara.nutritionalassistant.data.IngredientStubContract;
 import br.com.dofukuhara.nutritionalassistant.model.IngredientStub;
 import br.com.dofukuhara.nutritionalassistant.network.TacoRestClient;
 import br.com.dofukuhara.nutritionalassistant.util.AdMobManager;
@@ -82,7 +86,29 @@ public class AllIngredientsListActivity extends AppCompatActivity implements Ing
             // If the list is not presented in the Bundle, lets get it from Content Provider
             // or via Rest
             // TODO: Query via Content Provider in case that the user did not allowed network in Mobile Data
-            getIngredientsFromRest();
+
+            // Query Content Provider for IngredientStubs stored on it
+            Cursor cursor = getContentResolver().query(
+                    IngredientStubContract.IngredientStubEntry.CONTENT_URI,
+                    null, null, null, null);
+
+            // Get an ArrayList of IngredientStub from a cursor
+            mIngredientsList = Utils.cursorToIngredientStubList(cursor);
+            cursor.close();
+
+            if (mIngredientsList.size() == 0) {
+                // In case that the list is empty, we need to fetch the data from the internet
+                // TODO: need to check if we are using Mobile Data and if user allowed us to do so
+                getIngredientsFromRest();
+            } else {
+                // In case that the data was found in the provider...
+                // ... lets sort it alphabetically first
+                Collections.sort(mIngredientsList, new IngredientsStubNameComparator());
+                // ... and them display it to the user
+                mIngredientsStubListAdapter.setIngredientsList(mIngredientsList);
+                mRvAllIngredientsList.setAdapter(mIngredientsStubListAdapter);
+            }
+
         } else {
             // In case that the screen was rotated, we can recover the list from Bundle
             mIngredientsList = savedInstanceState
@@ -130,6 +156,24 @@ public class AllIngredientsListActivity extends AppCompatActivity implements Ing
                 mIngredientsList = response.body();
 
                 Collections.sort(mIngredientsList, new IngredientsStubNameComparator());
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ContentResolver cr = getContentResolver();
+                        for (IngredientStub stub : mIngredientsList) {
+                            ContentValues cv = new ContentValues();
+                            cv.put(IngredientStubContract.IngredientStubEntry.COLUMN_INGREDIENT_ID,
+                                    stub.getId());
+                            cv.put(IngredientStubContract.IngredientStubEntry.COLUMN_INGREDIENT_DESCRIPT,
+                                    stub.getDescription());
+                            cv.put(IngredientStubContract.IngredientStubEntry.COLUMN_INGREDIENT_CLASSIF,
+                                    stub.getClassification());
+
+                            cr.insert(IngredientStubContract.IngredientStubEntry.CONTENT_URI, cv);
+                        }
+                    }
+                }).start();
 
                 mIngredientsStubListAdapter.setIngredientsList(mIngredientsList);
                 mRvAllIngredientsList.setAdapter(mIngredientsStubListAdapter);

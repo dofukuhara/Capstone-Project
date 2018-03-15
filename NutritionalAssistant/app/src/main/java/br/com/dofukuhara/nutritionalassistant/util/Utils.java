@@ -5,7 +5,10 @@ import android.database.Cursor;
 import java.util.ArrayList;
 
 import br.com.dofukuhara.nutritionalassistant.data.CategoryContract;
+import br.com.dofukuhara.nutritionalassistant.data.IngredientStubContract;
 import br.com.dofukuhara.nutritionalassistant.model.Category;
+import br.com.dofukuhara.nutritionalassistant.model.Ingredient;
+import br.com.dofukuhara.nutritionalassistant.model.IngredientStub;
 
 /**
  * Created by dofukuhara on 14/02/2018.
@@ -45,8 +48,8 @@ public final class Utils {
     // ContentProvider Authority address
     public static final String AUTHORITY = "br.com.dofukuhara.nutritionalassistant";
 
-    // Function that receives a Cursor and return a List of Categories
-    public static final ArrayList<Category> cursorToCategoryArrayList(Cursor cursor) {
+    // Function that receives a Cursor and returns a List of Categories
+    public static ArrayList<Category> cursorToCategoryArrayList(Cursor cursor) {
         ArrayList<Category> categoryList = new ArrayList<>();
         Category category;
         int categId;
@@ -62,5 +65,29 @@ public final class Utils {
         }
 
         return categoryList;
+    }
+
+    // Function that receives a Cursor and returns a List of IngredientStub
+    public static ArrayList<IngredientStub> cursorToIngredientStubList(Cursor cursor) {
+        ArrayList<IngredientStub> ingredStubList = new ArrayList<>();
+        IngredientStub stub;
+        int ingId;
+        String ingDesc;
+        String ingClass;
+
+        while (cursor.moveToNext()) {
+            ingId = cursor.getInt(cursor.getColumnIndex(
+                    IngredientStubContract.IngredientStubEntry.COLUMN_INGREDIENT_ID));
+            ingDesc = cursor.getString(cursor.getColumnIndex(
+                    IngredientStubContract.IngredientStubEntry.COLUMN_INGREDIENT_DESCRIPT));
+            ingClass = cursor.getString(cursor.getColumnIndex(
+                    IngredientStubContract.IngredientStubEntry.COLUMN_INGREDIENT_CLASSIF));
+
+            stub = new IngredientStub(ingId, ingDesc, ingClass);
+
+            ingredStubList.add(stub);
+        }
+
+        return ingredStubList;
     }
 }

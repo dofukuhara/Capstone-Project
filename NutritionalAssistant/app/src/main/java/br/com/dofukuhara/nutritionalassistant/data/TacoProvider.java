@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import br.com.dofukuhara.nutritionalassistant.model.IngredientStub;
 import br.com.dofukuhara.nutritionalassistant.util.Utils;
 
 /**
@@ -22,14 +23,17 @@ public class TacoProvider extends ContentProvider {
     // TODO: Implement ContentProvider for:
     // --> Favorite: OK
     // --> Category: OK
+    // --> IngredientStub: OK
     // --> Ingredient:
+    // --> Recipe:
     public static final int FAVORITES = 100;
     public static final int FAVORITE_WITH_ID = 101;
     public static final int CATEGORIES = 200;
     public static final int CATEGORY_WITH_ROW_ID = 201;
     public static final int CATEGORY_WITH_CATEGORY_ID = 202;
-    public static final int INGREDIENTS = 300;
-    public static final int INGREDIENT_WITH_ID = 301;
+    public static final int INGREDIENTS_STUB = 300;
+    public static final int INGREDIENT_STUBS_WITH_INGREDIENT_ID = 301;
+    public static final int INGREDIENT_STUBS_WITH_CLASSIFICATION_ID = 302;
 
     private TacoDBHelper mTacoDBHelper;
 
@@ -43,8 +47,12 @@ public class TacoProvider extends ContentProvider {
         matcher.addURI(Utils.AUTHORITY, CategoryContract.CATEGORY_PATH, CATEGORIES);
         matcher.addURI(Utils.AUTHORITY, CategoryContract.CATEGORY_PATH + "/#", CATEGORY_WITH_CATEGORY_ID);
         matcher.addURI(Utils.AUTHORITY, CategoryContract.CATEGORY_ROW_PATH + "/#", CATEGORY_WITH_ROW_ID);
-        matcher.addURI(Utils.AUTHORITY, IngredientContract.INGREDIENT_PATH, INGREDIENTS);
-        matcher.addURI(Utils.AUTHORITY, IngredientContract.INGREDIENT_PATH + "/#", INGREDIENT_WITH_ID);
+        matcher.addURI(Utils.AUTHORITY, IngredientStubContract.INGREDIENT_STUB_PATH, INGREDIENTS_STUB);
+        matcher.addURI(Utils.AUTHORITY, IngredientStubContract.INGREDIENT_STUB_INGRED_PATH + "/#",
+                INGREDIENT_STUBS_WITH_INGREDIENT_ID);
+        matcher.addURI(Utils.AUTHORITY, IngredientStubContract.INGREDIENT_STUB_CLASS_PATH + "/#",
+                INGREDIENT_STUBS_WITH_CLASSIFICATION_ID);
+
 
         return matcher;
     }
@@ -100,6 +108,28 @@ public class TacoProvider extends ContentProvider {
                         null, null, sortOrder);
                 break;
 
+            case INGREDIENTS_STUB:
+                retCursor = db.query(IngredientStubContract.IngredientStubEntry.TABLE_NAME,
+                        projections, selection, selectionArgs,
+                        null, null, sortOrder);
+                break;
+
+            case INGREDIENT_STUBS_WITH_INGREDIENT_ID:
+                id = uri.getPathSegments().get(2);
+
+                retCursor = db.query(IngredientStubContract.IngredientStubEntry.TABLE_NAME, projections,
+                        IngredientStubContract.IngredientStubEntry.COLUMN_INGREDIENT_ID + "=?",
+                        new String[] {id}, null, null, sortOrder);
+                break;
+
+            case INGREDIENT_STUBS_WITH_CLASSIFICATION_ID:
+                id = uri.getPathSegments().get(2);
+
+                retCursor = db.query(IngredientStubContract.IngredientStubEntry.TABLE_NAME, projections,
+                        IngredientStubContract.IngredientStubEntry.COLUMN_INGREDIENT_CLASSIF + "=?",
+                        new String[] {id}, null, null, sortOrder);
+                break;
+
             default:
                 throw new UnsupportedOperationException("Unknown URI: " + uri);
         }
@@ -128,11 +158,14 @@ public class TacoProvider extends ContentProvider {
             case CATEGORY_WITH_CATEGORY_ID:
                 return "vnd.android.cursor.item/vnd.br.com.dofukuhara.nutritionalassistant.category";
 
-            case INGREDIENTS:
+            case INGREDIENTS_STUB:
                 return "vnd.android.cursor.dir/vnd.br.com.dofukuhara.nutritionalassistant.ingredient";
 
-            case INGREDIENT_WITH_ID:
-                return "vnd.android.cursor.item/vnd.br.com.dofukuhara.nutritionalassistant.ingredient";
+            case INGREDIENT_STUBS_WITH_INGREDIENT_ID:
+                return "vnd.android.cursor.item/vnd.br.com.dofukuhara.nutritionalassistant.ingredientstub/ing";
+
+            case INGREDIENT_STUBS_WITH_CLASSIFICATION_ID:
+                return "vnd.android.cursor.item/vnd.br.com.dofukuhara.nutritionalassistant.ingredientstub/class";
 
             default:
                 throw new UnsupportedOperationException("Unknown URI: " + uri);
@@ -161,15 +194,28 @@ public class TacoProvider extends ContentProvider {
                 long newCategId = db.insert(CategoryContract.CategoryEntry.TABLE_NAME,
                         null, contentValues);
                 if (newCategId < 0) {
-                    throw new SQLException("Failed to insert Favorite into: " + uri);
+                    throw new SQLException("Failed to insert Category into: " + uri);
                 } else {
                     retUri = ContentUris.withAppendedId(CategoryContract.CategoryEntry.CONTENT_URI, newCategId);
                 }
                 break;
 
+            case INGREDIENTS_STUB:
+                long newIngredStubId = db.insert(IngredientStubContract.IngredientStubEntry.TABLE_NAME,
+                        null, contentValues);
+                if (newIngredStubId < 0) {
+                    throw new SQLException("Failed to insert IngredientStub into: " + uri);
+                } else {
+                    retUri = ContentUris.withAppendedId(
+                            IngredientStubContract.IngredientStubEntry.CONTENT_URI, newIngredStubId);
+                }
+                break;
+
+            case FAVORITE_WITH_ID:
             case CATEGORY_WITH_ROW_ID:
             case CATEGORY_WITH_CATEGORY_ID:
-            case FAVORITE_WITH_ID:
+            case INGREDIENT_STUBS_WITH_INGREDIENT_ID:
+            case INGREDIENT_STUBS_WITH_CLASSIFICATION_ID:
 
             default:
                 throw new UnsupportedOperationException("Unknown URI: " + uri);
@@ -197,10 +243,14 @@ public class TacoProvider extends ContentProvider {
                         where, whereArgs);
                 break;
 
-            // TODO: Check if Category DELETE operation should be implementer or not
+            // TODO: Check if Category DELETE operation should be implemented or not
             case CATEGORIES:
             case CATEGORY_WITH_ROW_ID:
             case CATEGORY_WITH_CATEGORY_ID:
+            // TODO: Check if IngredientStub DELETE operation should be implemented or not
+            case INGREDIENTS_STUB:
+            case INGREDIENT_STUBS_WITH_INGREDIENT_ID:
+            case INGREDIENT_STUBS_WITH_CLASSIFICATION_ID:
 
             default:
                 throw new UnsupportedOperationException("Unknown URI: " + uri);

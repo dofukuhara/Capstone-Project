@@ -17,9 +17,19 @@ public class IngredientStub implements Parcelable {
     @SerializedName("descricacao")
     private String description;
 
+    @SerializedName("classificacao")
+    private String classification;
+
+    public IngredientStub(int id, String description, String classification) {
+        this.id = id;
+        this.description = description;
+        this.classification = classification;
+    }
+
     protected IngredientStub(Parcel in) {
         id = in.readInt();
         description = in.readString();
+        classification = in.readString();
     }
 
     public static final Creator<IngredientStub> CREATOR = new Creator<IngredientStub>() {
@@ -43,6 +53,7 @@ public class IngredientStub implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(id);
         parcel.writeString(description);
+        parcel.writeString(classification);
     }
 
     public int getId() {
@@ -51,5 +62,9 @@ public class IngredientStub implements Parcelable {
 
     public String getDescription() {
         return this.description.trim();
+    }
+
+    public String getClassification() {
+        return classification;
     }
 }
