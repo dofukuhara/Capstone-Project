@@ -30,7 +30,8 @@
             android:exported="false" />
 
         <activity android:name=".ui.IngredientDetailsActivity" />
-        <activity android:name=".ui.IngredientsByCategoryActivity"></activity>
+        <activity android:name=".ui.IngredientsByCategoryActivity" />
+        <activity android:name=".ui.FavoriteListActivity"></activity>
     </application>
 
 </manifest>

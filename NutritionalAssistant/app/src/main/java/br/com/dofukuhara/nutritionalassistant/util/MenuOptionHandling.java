@@ -8,6 +8,7 @@ import br.com.dofukuhara.nutritionalassistant.R;
 import br.com.dofukuhara.nutritionalassistant.ui.AllIngredientsListActivity;
 import br.com.dofukuhara.nutritionalassistant.ui.CategoryListActivity;
 import br.com.dofukuhara.nutritionalassistant.ui.ConfigurationActivity;
+import br.com.dofukuhara.nutritionalassistant.ui.FavoriteListActivity;
 
 /**
  * Created by dofukuhara on 17/02/2018.
@@ -46,11 +47,15 @@ public class MenuOptionHandling {
                 break;
 
             case R.id.menu_fav_list:
+                if (!context.getClass().getName().equals(FavoriteListActivity.class.getName())) {
+                    intent = new Intent(context, FavoriteListActivity.class);
+                    context.startActivity(intent);
+                }else {
+                    // If the class that is calling this is the one that the user is trying to launch
+                    // there is no need to do anything new
 
-                // TODO: Implement Menu for Favorites List option
-                Toast.makeText(context, "This will launch " +
-                        context.getString(R.string.menu_fav_list_label), Toast.LENGTH_SHORT).show();
-
+                    // TODO: Check if a reload operation would be suitable in this case!
+                }
                 break;
 
             case R.id.menu_recipes_list:

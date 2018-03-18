@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.dofukuhara.nutritionalassistant.ui.CategoryListActivity">
+    tools:context="br.com.dofukuhara.nutritionalassistant.ui.FavoriteListActivity">
 
     <ProgressBar
-        android:id="@+id/pb_category_list"
+        android:id="@+id/pb_favorite_list"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,17 +19,17 @@
         tools:visibility="visible" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_category_list"
+        android:id="@+id/rv_favorite_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/adViewCategoryList"
+        app:layout_constraintBottom_toTopOf="@+id/adViewFavoriteList"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pb_category_list" />
+        app:layout_constraintTop_toBottomOf="@id/pb_favorite_list" />
 
     <com.google.android.gms.ads.AdView
-        android:id="@+id/adViewCategoryList"
+        android:id="@+id/adViewFavoriteList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -40,4 +40,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

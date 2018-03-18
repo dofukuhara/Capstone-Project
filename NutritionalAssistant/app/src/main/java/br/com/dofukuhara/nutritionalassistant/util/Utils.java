@@ -6,9 +6,11 @@ import android.database.Cursor;
 import java.util.ArrayList;
 
 import br.com.dofukuhara.nutritionalassistant.data.CategoryContract;
+import br.com.dofukuhara.nutritionalassistant.data.FavoriteContract;
 import br.com.dofukuhara.nutritionalassistant.data.IngredientContract;
 import br.com.dofukuhara.nutritionalassistant.data.IngredientStubContract;
 import br.com.dofukuhara.nutritionalassistant.model.Category;
+import br.com.dofukuhara.nutritionalassistant.model.Favorite;
 import br.com.dofukuhara.nutritionalassistant.model.Ingredient;
 import br.com.dofukuhara.nutritionalassistant.model.IngredientStub;
 
@@ -52,6 +54,8 @@ public final class Utils {
     // IngredientDetailsActivity - Category Parcelable
     public static final String CONST_BUNDLE_CATEGORY_BUNDLE =
             "const_bundle_category_bundle";
+    public static final String CONST_BUNDLE_FAVORITE_LIST_PARCELABLE =
+            "const_bundle_favorite_list_parcelable";
 
     // ContentProvider Authority address
     public static final String AUTHORITY = "br.com.dofukuhara.nutritionalassistant";
@@ -197,5 +201,19 @@ public final class Utils {
                ingredCursor.getString(ingredCursor.getColumnIndex(
                        IngredientContract.IngredientEntry.COLUMN_INGREDIENT_VITAC))
        );
+    }
+
+    // Function that receives a Cursor and return a list of Favorites
+    public static ArrayList<Favorite> cursorToFavoriteList(Cursor cursor) {
+        ArrayList<Favorite> retList = new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            retList.add(new Favorite(
+                    cursor.getInt(cursor.getColumnIndex(FavoriteContract.FavoriteEntry.COLUMN_FAVORITE_ID)),
+                    cursor.getString(cursor.getColumnIndex(FavoriteContract.FavoriteEntry.COLUMN_FAVORITE_NAME))
+            ));
+        }
+
+        return retList;
     }
 }

@@ -20,5 +20,6 @@ public class FavoriteContract {
         public static final String TABLE_NAME = "favorite";
 
         public static final String COLUMN_FAVORITE_ID = "favoriteId";
+        public static final String COLUMN_FAVORITE_NAME = "favoriteName";
     }
 }

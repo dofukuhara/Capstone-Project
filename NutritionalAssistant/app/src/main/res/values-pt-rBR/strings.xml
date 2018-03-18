@@ -8,6 +8,7 @@
     <string name="activity_all_ingredients">Lista de Todos os Ingredientes</string>
     <string name="activity_ingredient_details">Detalhes do Ingrediente</string>
     <string name="activity_ingredients_by_category">Ingredientes Por Categoria</string>
+    <string name="activity_favorite_list">Lista de Favoritos</string>
 
     // Strings comuns
     <string name="save">Salvar</string>

@@ -313,6 +313,7 @@ public class IngredientDetailsActivity extends AppCompatActivity {
                 // Populate the ContentValue with Ingredient ID
                 ContentValues ingredientToFav = new ContentValues();
                 ingredientToFav.put(FavoriteContract.FavoriteEntry.COLUMN_FAVORITE_ID, mIngredientId);
+                ingredientToFav.put(FavoriteContract.FavoriteEntry.COLUMN_FAVORITE_NAME, mIngredient.getDescription());
 
                 if (checkForIngredientInProviderCursor.moveToFirst()) {
                     // If the Ingredient is presented in the DB, lets perform a DELETE operation...

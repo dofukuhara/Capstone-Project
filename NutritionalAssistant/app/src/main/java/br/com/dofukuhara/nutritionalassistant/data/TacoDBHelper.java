@@ -21,7 +21,8 @@ public class TacoDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         final String createFavoriteTable = "CREATE TABLE " + FavoriteContract.FavoriteEntry.TABLE_NAME + " (" +
                 FavoriteContract.FavoriteEntry._ID + " INTEGER PRIMARY KEY, " +
-                FavoriteContract.FavoriteEntry.COLUMN_FAVORITE_ID + " INTEGER NOT NULL);";
+                FavoriteContract.FavoriteEntry.COLUMN_FAVORITE_ID + " INTEGER NOT NULL, " +
+                FavoriteContract.FavoriteEntry.COLUMN_FAVORITE_NAME + " TEXT);";
         db.execSQL(createFavoriteTable);
 
         final String createCategoryTable = "CREATE TABLE " + CategoryContract.CategoryEntry.TABLE_NAME + " (" +
