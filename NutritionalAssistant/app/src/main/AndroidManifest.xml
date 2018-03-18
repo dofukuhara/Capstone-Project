@@ -29,7 +29,8 @@
             android:authorities="br.com.dofukuhara.nutritionalassistant"
             android:exported="false" />
 
-        <activity android:name=".ui.IngredientDetailsActivity"></activity>
+        <activity android:name=".ui.IngredientDetailsActivity" />
+        <activity android:name=".ui.IngredientsByCategoryActivity"></activity>
     </application>
 
 </manifest>

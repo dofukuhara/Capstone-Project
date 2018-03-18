@@ -33,17 +33,23 @@ public final class Utils {
     public static final String CONST_CONFIG_SETUP_WIZARD = "const_config_setup_wizard";
     // Intent action to send IngredientStub id from All Ingredient List to Ingredient Details Activity
     public static final String CONST_INTENT_INGREDIENT_ID = "const_intent_ingredient_id";
+    // Intent action to send Category obj from CategoryList to IngredientsByCategory activity
+    public static final String CONST_INTENT_CATEGORY = "const_intent_category";
 
     /* Consts for SavedInstance Bundle */
     // CategoryListActivity - CategoryList Parcelable
     public static final String CONST_BUNDLE_CATEGORY_LIST_PARCELABLE =
             "const_bundle_category_list_parcelable";
-    // AllIngredientsListActivity - IngredientsList Parcelable
+    // AllIngredientsListActivity and IngredientsByCategoryActivity
+    // - IngredientsStubList Parcelable
     public static final String CONST_BUNDLE_ALL_INGREDIENTS_LIST_PARCELABLE =
             "const_bundle_all_ingredients_list_parcelable";
     // IngredientDetailsActivity - Ingredient Parcelable
     public static final String CONST_BUNDLE_INGREDIENT_PARCELABLE =
             "const_bundle_ingredient_parcelable";
+    // IngredientDetailsActivity - Category Parcelable
+    public static final String CONST_BUNDLE_CATEGORY_BUNDLE =
+            "const_bundle_category_bundle";
 
     // ContentProvider Authority address
     public static final String AUTHORITY = "br.com.dofukuhara.nutritionalassistant";

@@ -6,6 +6,7 @@
     <string name="activity_category">Category List</string>
     <string name="activity_all_ingredients">All Ingredients List</string>
     <string name="activity_ingredient_details">Ingredient Details</string>
+    <string name="activity_ingredients_by_category">Ingredients By Category</string>
 
     // Common Strings
     <string name="save">Save</string>
@@ -64,7 +65,7 @@
     <string name="rem_from_fav_fail">Failed to remove this ingreient from the Favorite List :(</string>
     <string name="ingredient_compose_info">* Composition of food per 100g of edible portion</string>
 
-<!--
+    <!--
     <string name="banner_ad_unit_id">ca-app-pub-5007360584192599/944378689</string>
     <string name="banner_ad_unit_id">ca-app-pub-5007360584192599/7720050809</string>
 -->

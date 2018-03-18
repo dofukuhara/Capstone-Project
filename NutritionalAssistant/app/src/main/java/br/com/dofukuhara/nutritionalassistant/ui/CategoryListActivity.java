@@ -15,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdView;
 
@@ -212,7 +211,10 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryA
 
     @Override
     public void onCategoryItemClick(Category category) {
-        // TODO: Implement onClickListener from CategoryList
-        Toast.makeText(this, category.getCategoryName(), Toast.LENGTH_SHORT).show();
+        // Intent to open IngredientsByCategory with all Ingredients based on the selected food Category
+        Intent intent = new Intent(this, IngredientsByCategoryActivity.class);
+        intent.putExtra(Utils.CONST_INTENT_CATEGORY, category);
+
+        startActivity(intent);
     }
 }

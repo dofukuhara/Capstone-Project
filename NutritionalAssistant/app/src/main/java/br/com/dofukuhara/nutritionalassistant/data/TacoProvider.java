@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import br.com.dofukuhara.nutritionalassistant.model.IngredientStub;
 import br.com.dofukuhara.nutritionalassistant.util.Utils;
 
 /**
