@@ -2,6 +2,7 @@ package br.com.dofukuhara.nutritionalassistant.ui;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -25,17 +26,22 @@ import br.com.dofukuhara.nutritionalassistant.adapter.IngredientsStubListAdapter
 import br.com.dofukuhara.nutritionalassistant.data.IngredientStubContract;
 import br.com.dofukuhara.nutritionalassistant.model.Category;
 import br.com.dofukuhara.nutritionalassistant.model.IngredientStub;
+import br.com.dofukuhara.nutritionalassistant.network.TacoRestClient;
 import br.com.dofukuhara.nutritionalassistant.util.AdMobManager;
 import br.com.dofukuhara.nutritionalassistant.util.IngredientsStubNameComparator;
 import br.com.dofukuhara.nutritionalassistant.util.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class IngredientsByCategoryActivity extends AppCompatActivity implements IngredientsStubListAdapter.IngredientItemClickListener{
 
     private Category mCategory;
     private ArrayList<IngredientStub> mIngredientStubList;
-    private IngredientsStubListAdapter mIngredientStubAdapter;
 
     @BindView(R.id.pg_ingred_by_categ)
     ProgressBar mPgIngredByCateg;
@@ -85,16 +91,16 @@ public class IngredientsByCategoryActivity extends AppCompatActivity implements 
             mIngredientStubList =
                     savedInstanceState.getParcelableArrayList(Utils.CONST_BUNDLE_ALL_INGREDIENTS_LIST_PARCELABLE);
             mCategory = savedInstanceState.getParcelable(Utils.CONST_BUNDLE_CATEGORY_BUNDLE);
+
+            loadLayoutContents();
         } else {
             // ... otherwise, we need to the get Category ID from the Intent and query the Content Provider
             loadContentFromIntent();
         }
-
-        loadLayoutContents();
-
     }
 
     private void loadLayoutContents() {
+        mPgIngredByCateg.setVisibility(View.GONE);
         mAdView.loadAd(AdMobManager.getAdRequest());
 
         mTvCategoryName.setText(mCategory.getCategoryName());
@@ -104,7 +110,7 @@ public class IngredientsByCategoryActivity extends AppCompatActivity implements 
         mRvIngdListByCateg.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
 
-        mIngredientStubAdapter = new IngredientsStubListAdapter(this);
+        IngredientsStubListAdapter mIngredientStubAdapter = new IngredientsStubListAdapter(this);
         mIngredientStubAdapter.setIngredientsList(mIngredientStubList);
 
         mRvIngdListByCateg.setAdapter(mIngredientStubAdapter);
@@ -129,12 +135,11 @@ public class IngredientsByCategoryActivity extends AppCompatActivity implements 
 
         if (mIngredientStubList.size() > 0) {
             Collections.sort(mIngredientStubList, new IngredientsStubNameComparator());
-        } else {
-            // TODO: Handle the case when no ingredient was found in the ContentProvider
-        }
 
-        // ... after we are all set, lets hide the Progress Bar
-        mPgIngredByCateg.setVisibility(View.GONE);
+            loadLayoutContents();
+        } else {
+            getIngredientsFromRest();
+        }
     }
 
     @Override
@@ -154,5 +159,63 @@ public class IngredientsByCategoryActivity extends AppCompatActivity implements 
         intent.putExtra(Utils.CONST_INTENT_INGREDIENT_ID, ingredient.getId());
 
         startActivity(intent);
+    }
+
+    public void getIngredientsFromRest() {
+        mPgIngredByCateg.setVisibility(View.VISIBLE);
+
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl(getString(R.string.base_url_for_taco))
+                .addConverterFactory(GsonConverterFactory.create());
+        Retrofit retrofit = builder.build();
+
+        TacoRestClient client = retrofit.create(TacoRestClient.class);
+
+        Call<ArrayList<IngredientStub>> call = client.getListOfIngredients();
+
+        call.enqueue(new Callback<ArrayList<IngredientStub>>() {
+            @Override
+            public void onResponse(Call<ArrayList<IngredientStub>> call, Response<ArrayList<IngredientStub>> response) {
+                ArrayList<IngredientStub> mIngredientsList;
+
+                mIngredientsList = response.body();
+
+                ContentResolver cr = getContentResolver();
+                for (IngredientStub stub : mIngredientsList) {
+                    ContentValues cv = new ContentValues();
+                    cv.put(IngredientStubContract.IngredientStubEntry.COLUMN_INGREDIENT_ID,
+                            stub.getId());
+                    cv.put(IngredientStubContract.IngredientStubEntry.COLUMN_INGREDIENT_DESCRIPT,
+                            stub.getDescription());
+                    cv.put(IngredientStubContract.IngredientStubEntry.COLUMN_INGREDIENT_CLASSIF,
+                            stub.getClassification());
+
+                    cr.insert(IngredientStubContract.IngredientStubEntry.CONTENT_URI, cv);
+
+                    // As we are iterating the ArrayList to save the IngredientStub in the Provider,
+                    // lets use this to filter the Ingredients by Category in order to populate
+                    // mIngredientStubList, instead of querying ContentProvider
+                    if(stub.getClassification().equals(String.valueOf(mCategory.getId()))) {
+                        mIngredientStubList.add(stub);
+                    }
+                }
+
+                if (mIngredientStubList.size() > 0) {
+                    Collections.sort(mIngredientStubList, new IngredientsStubNameComparator());
+
+                    loadLayoutContents();
+                } else {
+                    // TODO: Handle case where no Ingredients were retrieved from the Internet
+                    mPgIngredByCateg.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<IngredientStub>> call, Throwable t) {
+                mPgIngredByCateg.setVisibility(View.GONE);
+
+                // TODO: Handle error exception
+            }
+        });
     }
 }
