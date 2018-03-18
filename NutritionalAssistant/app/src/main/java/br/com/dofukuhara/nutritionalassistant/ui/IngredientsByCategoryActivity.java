@@ -111,6 +111,7 @@ public class IngredientsByCategoryActivity extends AppCompatActivity implements 
     }
 
     private void loadContentFromIntent() {
+        // TODO: If no IngredientStub list is yet stored in the Provider, we should fetch from the Internet
 
         // Display Progress Bar to the user while we query all the Ingredients...
         mPgIngredByCateg.setVisibility(View.VISIBLE);

@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import br.com.dofukuhara.nutritionalassistant.R;
 import br.com.dofukuhara.nutritionalassistant.data.CategoryContract;
 import br.com.dofukuhara.nutritionalassistant.data.FavoriteContract;
+import br.com.dofukuhara.nutritionalassistant.data.IngredientContract;
 import br.com.dofukuhara.nutritionalassistant.model.Ingredient;
 import br.com.dofukuhara.nutritionalassistant.network.TacoRestClient;
 import br.com.dofukuhara.nutritionalassistant.util.AdMobManager;
@@ -180,35 +181,55 @@ public class IngredientDetailsActivity extends AppCompatActivity {
     private void loadIngredientContent(Bundle savedInstanceState) {
         if (savedInstanceState == null ||
                 !savedInstanceState.containsKey(Utils.CONST_BUNDLE_INGREDIENT_PARCELABLE)) {
-            showLoadingBar(true);
 
-            Retrofit.Builder builder = new Retrofit.Builder()
-                    .baseUrl(getString(R.string.base_url_for_taco))
-                    .addConverterFactory(GsonConverterFactory.create());
-            Retrofit retrofit = builder.build();
+            ContentResolver cr = getContentResolver();
+            Uri queryUri = ContentUris.withAppendedId(
+                    IngredientContract.IngredientEntry.CONTENT_URI,
+                    mIngredientId);
+            Cursor checkIngredientQuery = cr.query(queryUri, null, null,
+                    null, null);
 
-            TacoRestClient client = retrofit.create(TacoRestClient.class);
+            if (checkIngredientQuery.moveToFirst()) {
+                mIngredient = Utils.cursorToIngredient(checkIngredientQuery);
+                setLayoutComponent();
+            } else {
 
-            Call<ArrayList<Ingredient>> call = client.getIngredientById(mIngredientId);
+                showLoadingBar(true);
 
-            call.enqueue(new Callback<ArrayList<Ingredient>>() {
-                @Override
-                public void onResponse(Call<ArrayList<Ingredient>> call, Response<ArrayList<Ingredient>> response) {
-                    showLoadingBar(false);
+                Retrofit.Builder builder = new Retrofit.Builder()
+                        .baseUrl(getString(R.string.base_url_for_taco))
+                        .addConverterFactory(GsonConverterFactory.create());
+                Retrofit retrofit = builder.build();
 
-                    mIngredientList = response.body();
-                    mIngredient = mIngredientList.get(0);
+                TacoRestClient client = retrofit.create(TacoRestClient.class);
 
-                    // TODO: Salvar o resultado obtido no Content Provider
+                Call<ArrayList<Ingredient>> call = client.getIngredientById(mIngredientId);
 
-                    setLayoutComponent();
-                }
+                call.enqueue(new Callback<ArrayList<Ingredient>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<Ingredient>> call, Response<ArrayList<Ingredient>> response) {
+                        showLoadingBar(false);
 
-                @Override
-                public void onFailure(Call<ArrayList<Ingredient>> call, Throwable t) {
-                    showLoadingBar(false);
-                }
-            });
+                        mIngredientList = response.body();
+                        mIngredient = mIngredientList.get(0);
+
+                        // TODO: Salvar o resultado obtido no Content Provider
+                        ContentValues cv = Utils.ingredientToContentValues(mIngredient);
+                        Uri uri = getContentResolver().insert(IngredientContract.IngredientEntry.CONTENT_URI, cv);
+                        if (uri == null) {
+                            // If any problem had occured during this save process, lets notify the user
+                            showToastMessage(R.string.failed_to_save_ingredient_offline);
+                        }
+
+                        setLayoutComponent();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ArrayList<Ingredient>> call, Throwable t) {
+                        showLoadingBar(false);
+                    }
+                });
+            }
         } else {
             mIngredient = savedInstanceState.getParcelable(
                     Utils.CONST_BUNDLE_INGREDIENT_PARCELABLE

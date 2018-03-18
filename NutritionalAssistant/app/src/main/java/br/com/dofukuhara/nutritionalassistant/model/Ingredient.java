@@ -99,6 +99,65 @@ public class Ingredient implements Parcelable {
     @SerializedName("vitamina_c")
     private String vitaminC;
 
+    public Ingredient(int id,
+                      String description,
+                      String classification,
+                      String umity,
+                      String energyKcal,
+                      String energyKj,
+                      String protein,
+                      String lipids,
+                      String cholesterol,
+                      String carbohydrate,
+                      String foodFiber,
+                      String ashes,
+                      String calcium,
+                      String magnesium,
+                      String manganese,
+                      String phosphor,
+                      String iron,
+                      String sodium,
+                      String potassium,
+                      String copper,
+                      String zinc,
+                      String retinol,
+                      String re,
+                      String rae,
+                      String thiamine,
+                      String riboflavin,
+                      String pyridoxine,
+                      String niacin,
+                      String vitaminC) {
+        this.id = id;
+        this.description = description;
+        this.classification = classification;
+        this.umity = umity;
+        this.energy = new Energy(energyKcal, energyKj);
+        this.protein = protein;
+        this.lipids = lipids;
+        this.cholesterol = cholesterol;
+        this.carbohydrate = carbohydrate;
+        this.foodFiber = foodFiber;
+        this.ashes = ashes;
+        this.calcium = calcium;
+        this.magnesium = magnesium;
+        this.manganese = manganese;
+        this.phosphor = phosphor;
+        this.iron = iron;
+        this.sodium = sodium;
+        this.potassium = potassium;
+        this.copper = copper;
+        this.zinc = zinc;
+        this.retinol = retinol;
+        this.re = re;
+        this.rae = rae;
+        this.thiamine = thiamine;
+        this.riboflavin = riboflavin;
+        this.pyridoxine = pyridoxine;
+        this.niacin = niacin;
+        this.vitaminC = vitaminC;
+    }
+
     protected Ingredient(Parcel in) {
         id = in.readInt();
         description = in.readString();
@@ -318,13 +377,14 @@ public class Ingredient implements Parcelable {
         }
     }
 
-    private String handleEmptyString(String value) {
+    private String handleEmptyString(String valueFromIngredient) {
+        String value = valueFromIngredient.trim();
         // If the value is EMPTY, just return a dash
         if (TextUtils.isEmpty(value) ) {
             return "-";
         } else {
             // Else, lets check if is in a float format
-            Pattern pattern = Pattern.compile("^\\d*.\\d*$");
+            Pattern pattern = Pattern.compile("^\\d*\\.\\d*$");
             Matcher matcher = pattern.matcher(value);
 
             if (!matcher.matches()) {
@@ -336,5 +396,4 @@ public class Ingredient implements Parcelable {
             }
         }
     }
-
 }

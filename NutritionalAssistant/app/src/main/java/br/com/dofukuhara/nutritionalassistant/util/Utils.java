@@ -1,10 +1,12 @@
 package br.com.dofukuhara.nutritionalassistant.util;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 
 import java.util.ArrayList;
 
 import br.com.dofukuhara.nutritionalassistant.data.CategoryContract;
+import br.com.dofukuhara.nutritionalassistant.data.IngredientContract;
 import br.com.dofukuhara.nutritionalassistant.data.IngredientStubContract;
 import br.com.dofukuhara.nutritionalassistant.model.Category;
 import br.com.dofukuhara.nutritionalassistant.model.Ingredient;
@@ -95,5 +97,105 @@ public final class Utils {
         }
 
         return ingredStubList;
+    }
+
+    // Function that receives an Ingredient obj and returns a ContentValues obj
+    public static ContentValues ingredientToContentValues(Ingredient ingredient) {
+        ContentValues retCv = new ContentValues();
+
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_ID, ingredient.getId());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_DESCRIPT, ingredient.getDescription());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_CLASSIF, ingredient.getClassification());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_UMITY, ingredient.getUmity());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_ENERGY_KCAL, ingredient.getEnergyKcal());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_ENERGY_KJ, ingredient.getEnergyKj());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_PROTEIN, ingredient.getProtein());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_LIPIDS, ingredient.getLipids());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_CHOLEST, ingredient.getCholesterol());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_CARBO, ingredient.getCarbohydrate());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_FIBER, ingredient.getFoodFiber());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_ASHES, ingredient.getAshes());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_CALCIUM, ingredient.getCalcium());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_MAG, ingredient.getMagnesium());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_NANGA, ingredient.getManganese());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_PHOS, ingredient.getPhosphor());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_IRON, ingredient.getIron());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_SODIUM, ingredient.getSodium());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_POTAS, ingredient.getPotassium());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_COPPER, ingredient.getCopper());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_ZINC, ingredient.getZinc());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_RETI, ingredient.getRetinol());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_RE, ingredient.getRe());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_RAE, ingredient.getRae());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_THIA, ingredient.getThiamine());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_RIBO, ingredient.getRiboflavin());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_PYRI, ingredient.getPyridoxine());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_NIAC, ingredient.getNiacin());
+        retCv.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_VITAC, ingredient.getVitaminC());
+
+        return retCv;
+    }
+
+    public static Ingredient cursorToIngredient(Cursor ingredCursor) {
+       return new Ingredient(
+               ingredCursor.getInt(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_ID)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_DESCRIPT)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_CLASSIF)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_UMITY)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_ENERGY_KCAL)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_ENERGY_KJ)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_PROTEIN)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_LIPIDS)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_CHOLEST)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_CARBO)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_FIBER)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_ASHES)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_CALCIUM)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_MAG)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_NANGA)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_PHOS)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_IRON)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_SODIUM)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_POTAS)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_COPPER)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_ZINC)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_RETI)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_RE)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_RAE)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_THIA)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_RIBO)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_PYRI)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_NIAC)),
+               ingredCursor.getString(ingredCursor.getColumnIndex(
+                       IngredientContract.IngredientEntry.COLUMN_INGREDIENT_VITAC))
+       );
     }
 }

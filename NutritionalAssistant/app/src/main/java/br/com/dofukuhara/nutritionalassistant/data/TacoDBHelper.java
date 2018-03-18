@@ -49,7 +49,8 @@ public class TacoDBHelper extends SQLiteOpenHelper {
                 IngredientContract.IngredientEntry.COLUMN_INGREDIENT_DESCRIPT + " TEXT, " +
                 IngredientContract.IngredientEntry.COLUMN_INGREDIENT_CLASSIF + " TEXT, " +
                 IngredientContract.IngredientEntry.COLUMN_INGREDIENT_UMITY + " TEXT, " +
-                IngredientContract.IngredientEntry.COLUMN_INGREDIENT_ENERGY + " TEXT, " +
+                IngredientContract.IngredientEntry.COLUMN_INGREDIENT_ENERGY_KCAL + " TEXT, " +
+                IngredientContract.IngredientEntry.COLUMN_INGREDIENT_ENERGY_KJ + " TEXT, " +
                 IngredientContract.IngredientEntry.COLUMN_INGREDIENT_PROTEIN + " TEXT, " +
                 IngredientContract.IngredientEntry.COLUMN_INGREDIENT_LIPIDS + " TEXT, " +
                 IngredientContract.IngredientEntry.COLUMN_INGREDIENT_CHOLEST + " TEXT, " +

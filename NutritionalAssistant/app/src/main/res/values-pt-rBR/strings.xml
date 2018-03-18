@@ -63,5 +63,6 @@
     <string name="rem_from_fav_success">Ingrediente removido com sucesso da Lista de Favoritos!</string>
     <string name="rem_from_fav_fail">Tivemos um probleming em remover esse ingrediente da Lista de Favoritos :(</string>
     <string name="ingredient_compose_info">* Composição de alimentos por 100g de parte comestível</string>
+    <string name="failed_to_save_ingredient_offline">Falha ao salvar este ingrediente localmente.</string>
 
 </resources>

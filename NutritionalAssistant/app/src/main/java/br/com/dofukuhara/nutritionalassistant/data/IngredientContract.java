@@ -24,7 +24,8 @@ public class IngredientContract {
         public static final String COLUMN_INGREDIENT_DESCRIPT = "ingredientDescription";
         public static final String COLUMN_INGREDIENT_CLASSIF = "ingredientClassification";
         public static final String COLUMN_INGREDIENT_UMITY = "ingredientUmity";
-        public static final String COLUMN_INGREDIENT_ENERGY = "ingredientEnergy";
+        public static final String COLUMN_INGREDIENT_ENERGY_KCAL = "ingredientEnergyKcal";
+        public static final String COLUMN_INGREDIENT_ENERGY_KJ = "ingredientEnergyKj";
         public static final String COLUMN_INGREDIENT_PROTEIN = "ingredientProtein";
         public static final String COLUMN_INGREDIENT_LIPIDS = "ingredientLipids";
         public static final String COLUMN_INGREDIENT_CHOLEST = "ingredientCholesterol";
