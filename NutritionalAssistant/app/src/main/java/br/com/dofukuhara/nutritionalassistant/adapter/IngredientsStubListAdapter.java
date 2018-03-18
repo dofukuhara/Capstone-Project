@@ -10,8 +10,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import br.com.dofukuhara.nutritionalassistant.R;
-import br.com.dofukuhara.nutritionalassistant.model.Ingredient;
 import br.com.dofukuhara.nutritionalassistant.model.IngredientStub;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by dofukuhara on 17/02/2018.
@@ -62,11 +63,12 @@ public class IngredientsStubListAdapter extends RecyclerView.Adapter<Ingredients
 
     class IngredientsListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView tvIngredientName;
+        @BindView(R.id.tv_ingredient_item)
+        TextView tvIngredientName;
+
         public IngredientsListViewHolder(View itemView) {
             super(itemView);
-
-            tvIngredientName = itemView.findViewById(R.id.tv_ingredient_item);
+            ButterKnife.bind(this, itemView);
 
             itemView.setOnClickListener(this);
         }

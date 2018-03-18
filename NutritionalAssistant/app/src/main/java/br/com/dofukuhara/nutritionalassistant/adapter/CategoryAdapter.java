@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 import br.com.dofukuhara.nutritionalassistant.R;
 import br.com.dofukuhara.nutritionalassistant.model.Category;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by dofukuhara on 15/02/2018.
@@ -61,12 +63,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     class CategoryListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView tvCategoryItem;
+        @BindView(R.id.tv_category_item)
+        TextView tvCategoryItem;
 
         public CategoryListViewHolder(View itemView) {
             super(itemView);
-
-            tvCategoryItem = itemView.findViewById(R.id.tv_category_item);
+            ButterKnife.bind(this, itemView);
 
             itemView.setOnClickListener(this);
         }

@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import br.com.dofukuhara.nutritionalassistant.R;
 import br.com.dofukuhara.nutritionalassistant.util.Utils;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class ConfigurationActivity extends AppCompatActivity {
 
@@ -25,9 +27,14 @@ public class ConfigurationActivity extends AppCompatActivity {
     private boolean isFirstTimeOpen = false;
 
     // Layout variables
-    private CheckBox mCbIsMobileDataAllowed;
-    private TextView mTvAccountName;
-    private Button mButtonSaveConfig;
+    @BindView(R.id.cb_allow_mobile_data_connection)
+    CheckBox mCbIsMobileDataAllowed;
+
+    @BindView(R.id.tv_account_config)
+    TextView mTvAccountName;
+
+    @BindView(R.id.btn_save_config)
+    Button mButtonSaveConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,8 @@ public class ConfigurationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_configuration);
 
         mContext = this;
+
+        ButterKnife.bind(this);
 
         layoutInitialization();
 
@@ -97,10 +106,6 @@ public class ConfigurationActivity extends AppCompatActivity {
                 actionBar.setDisplayHomeAsUpEnabled(true);
             }
         }
-
-        mCbIsMobileDataAllowed = findViewById(R.id.cb_allow_mobile_data_connection);
-        mTvAccountName = findViewById(R.id.tv_account_config);
-        mButtonSaveConfig = findViewById(R.id.btn_save_config);
 
         setListeners();
     }

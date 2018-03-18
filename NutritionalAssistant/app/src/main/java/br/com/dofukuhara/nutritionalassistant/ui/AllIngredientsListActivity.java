@@ -30,6 +30,8 @@ import br.com.dofukuhara.nutritionalassistant.util.AdMobManager;
 import br.com.dofukuhara.nutritionalassistant.util.IngredientsStubNameComparator;
 import br.com.dofukuhara.nutritionalassistant.util.MenuOptionHandling;
 import br.com.dofukuhara.nutritionalassistant.util.Utils;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,15 +40,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AllIngredientsListActivity extends AppCompatActivity implements IngredientsStubListAdapter.IngredientItemClickListener {
 
-    private ProgressBar mPbAllIngredientsList;
-    private RecyclerView mRvAllIngredientsList;
+    @BindView(R.id.pb_all_ingredients_list)
+    ProgressBar mPbAllIngredientsList;
+
+    @BindView(R.id.rv_all_ingredients_list)
+    RecyclerView mRvAllIngredientsList;
+
+    @BindView(R.id.adViewAllIngredientsList)
+    AdView mAdView;
 
     private ArrayList<IngredientStub> mIngredientsList;
     private IngredientsStubListAdapter mIngredientsStubListAdapter;
 
     private boolean isMobileDataAllowed;
-
-    private AdView mAdView;
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -67,6 +73,8 @@ public class AllIngredientsListActivity extends AppCompatActivity implements Ing
 
         SharedPreferences sharedPref = getSharedPreferences(
                 Utils.SHARED_PREF_KEY, Context.MODE_PRIVATE);
+
+        ButterKnife.bind(this);
 
         layoutInitialization();
 
@@ -123,11 +131,7 @@ public class AllIngredientsListActivity extends AppCompatActivity implements Ing
     private void layoutInitialization() {
         setTitle(R.string.activity_all_ingredients);
 
-        mAdView = findViewById(R.id.adViewAllIngredientsList);
         mAdView.loadAd(AdMobManager.getAdRequest());
-
-        mPbAllIngredientsList = findViewById(R.id.pb_all_ingredients_list);
-        mRvAllIngredientsList = findViewById(R.id.rv_all_ingredients_list);
 
         mRvAllIngredientsList.setHasFixedSize(true);
         mRvAllIngredientsList.setLayoutManager(new LinearLayoutManager(this,

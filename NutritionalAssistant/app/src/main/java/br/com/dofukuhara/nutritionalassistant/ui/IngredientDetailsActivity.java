@@ -45,7 +45,8 @@ public class IngredientDetailsActivity extends AppCompatActivity {
     private ArrayList<Ingredient> mIngredientList;
     private Ingredient mIngredient;
 
-    private AdView mAdView;
+    @BindView(R.id.adViewIngredientDetails)
+    AdView mAdView;
 
     @BindView(R.id.cl_ingredient_details)
     ConstraintLayout mClIngredientDetails;
@@ -170,7 +171,6 @@ public class IngredientDetailsActivity extends AppCompatActivity {
 
         setTitle(getString(R.string.activity_ingredient_details));
 
-        mAdView = findViewById(R.id.adViewIngredientDetails);
         mAdView.loadAd(AdMobManager.getAdRequest());
 
         // TODO: First, check if the food is in Content Provider, if not, fetch on the Internet

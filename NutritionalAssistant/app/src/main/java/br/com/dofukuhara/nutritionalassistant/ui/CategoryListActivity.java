@@ -30,6 +30,8 @@ import br.com.dofukuhara.nutritionalassistant.util.AdMobManager;
 import br.com.dofukuhara.nutritionalassistant.util.CategoriesNameComparator;
 import br.com.dofukuhara.nutritionalassistant.util.MenuOptionHandling;
 import br.com.dofukuhara.nutritionalassistant.util.Utils;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,15 +40,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CategoryListActivity extends AppCompatActivity implements CategoryAdapter.CategoryItemClickListener {
 
-    private ProgressBar mPbCategoryList;
-    private RecyclerView mRvCategoryList;
+    @BindView(R.id.pb_category_list)
+    ProgressBar mPbCategoryList;
+
+    @BindView(R.id.rv_category_list)
+    RecyclerView mRvCategoryList;
+
+    @BindView(R.id.adViewCategoryList)
+    AdView mAdView;
 
     private ArrayList<Category> mCategoryList;
     private CategoryAdapter mCategoryAdapter;
 
     private boolean isMobileDataAllowed;
-
-    private AdView mAdView;
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -61,6 +67,8 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryA
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_list);
+
+        ButterKnife.bind(this);
 
         SharedPreferences sharedPref = getSharedPreferences(
                 Utils.SHARED_PREF_KEY, Context.MODE_PRIVATE);
@@ -129,11 +137,7 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryA
     private void layoutInitialization() {
         setTitle(R.string.activity_category);
 
-        mAdView = findViewById(R.id.adViewCategoryList);
         mAdView.loadAd(AdMobManager.getAdRequest());
-
-        mPbCategoryList = findViewById(R.id.pb_category_list);
-        mRvCategoryList = findViewById(R.id.rv_category_list);
 
         mRvCategoryList.setHasFixedSize(true);
         mRvCategoryList.setLayoutManager(new LinearLayoutManager(this,
