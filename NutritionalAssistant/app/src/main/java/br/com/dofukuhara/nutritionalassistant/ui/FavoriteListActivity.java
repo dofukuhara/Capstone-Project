@@ -1,6 +1,7 @@
 package br.com.dofukuhara.nutritionalassistant.ui;
 
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -42,15 +43,6 @@ public class FavoriteListActivity extends AppCompatActivity implements FavoriteA
     // TODO: Implement Ingredient Removal from Favorite List
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        if (mFavoriteList != null) {
-            outState.putParcelableArrayList(Utils.CONST_BUNDLE_FAVORITE_LIST_PARCELABLE,
-                    mFavoriteList);
-        }
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite_list);
@@ -71,16 +63,17 @@ public class FavoriteListActivity extends AppCompatActivity implements FavoriteA
         ));
 
         mAdView.loadAd(AdMobManager.getAdRequest());
+       setLayoutParams();
+    }
 
-        if(savedInstanceState != null &&
-                savedInstanceState.containsKey(Utils.CONST_BUNDLE_FAVORITE_LIST_PARCELABLE)) {
-            mFavoriteList = savedInstanceState.getParcelableArrayList(
-                    Utils.CONST_BUNDLE_FAVORITE_LIST_PARCELABLE);
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-        } else {
-            loadContentFromProvider();
-        }
-
+        // We need to load it from onResume because when the user cames back from Ingredient Details,
+        // this activity content needs to be fetched again, as the Ingredient that was being viewed
+        // could be removed from the Fav list
+        loadContentFromProvider();
         setLayoutParams();
     }
 
@@ -93,7 +86,7 @@ public class FavoriteListActivity extends AppCompatActivity implements FavoriteA
 
     private void setLayoutParams() {
         Collections.sort(mFavoriteList, new FavoritesNameComparator());
-        
+
         mFavoriteAdapter = new FavoriteAdapter(this);
         mFavoriteAdapter.setFavoriteList(mFavoriteList);
 
@@ -114,6 +107,9 @@ public class FavoriteListActivity extends AppCompatActivity implements FavoriteA
 
     @Override
     public void onFavoriteItemClick(Favorite favorite) {
-        // TODO: Implement Favorite Item Click Listener
+        Intent intent = new Intent(this, IngredientDetailsActivity.class);
+        intent.putExtra(Utils.CONST_INTENT_INGREDIENT_ID, favorite.getIngredientId());
+
+        startActivity(intent);
     }
 }
