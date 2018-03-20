@@ -23,4 +23,14 @@
         <item name="android:paddingRight">8dp</item>
     </style>
 
+    <style name="item_list">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/double_default_padding</item>
+        <item name="android:paddingBottom">@dimen/double_default_padding</item>
+        <item name="android:layout_marginBottom">@dimen/double_default_padding</item>
+        <item name="android:layout_marginLeft">@dimen/default_padding</item>
+        <item name="android:layout_marginRight">@dimen/default_padding</item>
+    </style>
+
 </resources>

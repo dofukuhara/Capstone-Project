@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -119,8 +120,7 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryA
                     // ... lets sort it alphabetically first
                     Collections.sort(mCategoryList, new CategoriesNameComparator());
                     // ... and them display it to the user
-                    mCategoryAdapter.setCategoryList(mCategoryList);
-                    mRvCategoryList.setAdapter(mCategoryAdapter);
+                    updateAdapter();
                 }
 
             } else {
@@ -128,8 +128,7 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryA
                 mCategoryList = savedInstanceState
                         .getParcelableArrayList(Utils.CONST_BUNDLE_CATEGORY_LIST_PARCELABLE);
 
-                mCategoryAdapter.setCategoryList(mCategoryList);
-                mRvCategoryList.setAdapter(mCategoryAdapter);
+                updateAdapter();
             }
         }
     }
@@ -182,8 +181,7 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryA
                     }
                 }).start();
 
-                mCategoryAdapter.setCategoryList(mCategoryList);
-                mRvCategoryList.setAdapter(mCategoryAdapter);
+                updateAdapter();
             }
 
             @Override
@@ -194,6 +192,16 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryA
 
             }
         });
+    }
+
+    private void updateAdapter() {
+        mCategoryAdapter.setCategoryList(mCategoryList);
+        mRvCategoryList.setAdapter(mCategoryAdapter);
+
+        // Adding a divider between lines for a better visualization
+        mRvCategoryList.addItemDecoration(
+                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -113,8 +114,7 @@ public class AllIngredientsListActivity extends AppCompatActivity implements Ing
                 // ... lets sort it alphabetically first
                 Collections.sort(mIngredientsList, new IngredientsStubNameComparator());
                 // ... and them display it to the user
-                mIngredientsStubListAdapter.setIngredientsList(mIngredientsList);
-                mRvAllIngredientsList.setAdapter(mIngredientsStubListAdapter);
+                updateAdapter();
             }
 
         } else {
@@ -122,8 +122,7 @@ public class AllIngredientsListActivity extends AppCompatActivity implements Ing
             mIngredientsList = savedInstanceState
                     .getParcelableArrayList(Utils.CONST_BUNDLE_ALL_INGREDIENTS_LIST_PARCELABLE);
 
-            mIngredientsStubListAdapter.setIngredientsList(mIngredientsList);
-            mRvAllIngredientsList.setAdapter(mIngredientsStubListAdapter);
+            updateAdapter();
 
         }
     }
@@ -179,8 +178,7 @@ public class AllIngredientsListActivity extends AppCompatActivity implements Ing
                     }
                 }).start();
 
-                mIngredientsStubListAdapter.setIngredientsList(mIngredientsList);
-                mRvAllIngredientsList.setAdapter(mIngredientsStubListAdapter);
+                updateAdapter();
             }
 
             @Override
@@ -190,6 +188,14 @@ public class AllIngredientsListActivity extends AppCompatActivity implements Ing
                 // TODO: Handle error exception
             }
         });
+    }
+
+    private void updateAdapter() {
+        mIngredientsStubListAdapter.setIngredientsList(mIngredientsList);
+        mRvAllIngredientsList.setAdapter(mIngredientsStubListAdapter);
+
+        mRvAllIngredientsList.addItemDecoration(
+                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
     @Override

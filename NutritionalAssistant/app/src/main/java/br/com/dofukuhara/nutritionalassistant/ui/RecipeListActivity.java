@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -95,6 +96,10 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
         mReciperAdapter.setRecipeList(mRecipeList);
 
         mRvRecipeList.setAdapter(mReciperAdapter);
+
+        // Adding a divider between lines for a better visualization
+        mRvRecipeList.addItemDecoration(
+                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
     private void createDialogForNewRecipe() {

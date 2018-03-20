@@ -37,11 +37,15 @@
         android:id="@+id/rv_ingd_list_by_categ"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/default_padding"
         android:layout_marginBottom="@dimen/default_padding"
+        android:layout_marginLeft="@dimen/default_padding"
+        android:layout_marginRight="@dimen/default_padding"
         app:layout_constraintBottom_toTopOf="@+id/adViewIngredListByCateg"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_category_name" />
+        app:layout_constraintTop_toBottomOf="@id/tv_category_name"
+        tools:itemlist="@layout/ingredients_list_item" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adViewIngredListByCateg"

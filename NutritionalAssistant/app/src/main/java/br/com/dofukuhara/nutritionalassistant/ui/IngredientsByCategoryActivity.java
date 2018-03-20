@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -114,6 +115,10 @@ public class IngredientsByCategoryActivity extends AppCompatActivity implements 
         mIngredientStubAdapter.setIngredientsList(mIngredientStubList);
 
         mRvIngdListByCateg.setAdapter(mIngredientStubAdapter);
+
+        // Adding a divider between lines for a better visualization
+        mRvIngdListByCateg.addItemDecoration(
+                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
     private void loadContentFromIntent() {

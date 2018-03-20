@@ -7,7 +7,7 @@
     <string name="activity_all_ingredients">All Ingredients List</string>
     <string name="activity_ingredient_details">Ingredient Details</string>
     <string name="activity_ingredients_by_category">Ingredients By Category</string>
-    <string name="activity_favorite_list">Favorite List</string>
+    <string name="activity_favorite_list">Favorites List</string>
     <string name="activity_recipe_list">Recipe List</string>
 
     // Common Strings

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -63,7 +64,6 @@ public class FavoriteListActivity extends AppCompatActivity implements FavoriteA
         ));
 
         mAdView.loadAd(AdMobManager.getAdRequest());
-       setLayoutParams();
     }
 
     @Override
@@ -91,6 +91,10 @@ public class FavoriteListActivity extends AppCompatActivity implements FavoriteA
         mFavoriteAdapter.setFavoriteList(mFavoriteList);
 
         mRvFavoriteList.setAdapter(mFavoriteAdapter);
+
+        // Adding a divider between lines for a better visualization
+        mRvFavoriteList.addItemDecoration(
+                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
 

@@ -21,13 +21,14 @@
         android:id="@+id/rv_all_ingredients_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="@dimen/default_padding"
         android:layout_marginLeft="@dimen/default_padding"
-        android:layout_marginTop="@dimen/default_padding"
+        android:layout_marginRight="@dimen/default_padding"
         app:layout_constraintBottom_toTopOf="@+id/adViewAllIngredientsList"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pb_all_ingredients_list" />
+        app:layout_constraintTop_toBottomOf="@id/pb_all_ingredients_list"
+        tools:listitem="@layout/ingredients_list_item" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adViewAllIngredientsList"

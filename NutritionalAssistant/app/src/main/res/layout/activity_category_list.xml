@@ -26,7 +26,8 @@
         app:layout_constraintBottom_toTopOf="@+id/adViewCategoryList"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pb_category_list" />
+        app:layout_constraintTop_toBottomOf="@id/pb_category_list"
+        tools:listitem="@layout/category_list_item"/>
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adViewCategoryList"

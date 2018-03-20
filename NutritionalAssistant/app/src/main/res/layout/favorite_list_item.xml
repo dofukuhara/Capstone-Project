@@ -8,11 +8,7 @@
 
     <TextView
         android:id="@+id/tv_favorite_item"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/default_padding"
-        android:layout_marginLeft="@dimen/default_padding"
-        android:layout_marginTop="@dimen/default_padding"
+        style="@style/item_list"
         tools:text="Favorite Item Name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
