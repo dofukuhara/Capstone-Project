@@ -9,11 +9,13 @@
     <string name="activity_ingredient_details">Detalhes do Ingrediente</string>
     <string name="activity_ingredients_by_category">Ingredientes Por Categoria</string>
     <string name="activity_favorite_list">Lista de Favoritos</string>
+    <string name="activity_recipe_list">Lista de Receitas</string>
 
     // Strings comuns
     <string name="save">Salvar</string>
     <string name="none">Nenhuma</string>
     <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
     <string name="invalid_option">Opção Inválida. Algo deu errado :(</string>
 
     // Strings para labels do Menu
@@ -66,4 +68,11 @@
     <string name="ingredient_compose_info">* Composição de alimentos por 100g de parte comestível</string>
     <string name="failed_to_save_ingredient_offline">Falha ao salvar este ingrediente localmente.</string>
 
+    // Strings para o Dialog de Nova Receita
+    <string name="dialog_new_recipe_title">Criar Nova Receita</string>
+    <string name="hint_add_new_recipe">Insira uma nova receita</string>
+    <string name="recipe_already_exists">Este nome de receita já existe! Tente outro nome.</string>
+    <string name="recipe_successfully_registered">Receita registrada com sucesso!</string>
+    <string name="recipe_register_fail">Falha ao registrar esta receita :(</string>
+    <string name="recipe_empty_field_not_allowed">Campo Vazio! Favor inserir um nome para a receita.</string>
 </resources>

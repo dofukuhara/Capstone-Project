@@ -30,7 +30,6 @@ public class TacoDBHelper extends SQLiteOpenHelper {
                 CategoryContract.CategoryEntry.COLUMN_CATEGORY_ID + " INTEGER NOT NULL, " +
                 CategoryContract.CategoryEntry.COLUMN_CATEGORY_NAME + " TEXT, " +
                 CategoryContract.CategoryEntry.COLUMN_UPDATED_DATE + ");";
-
         db.execSQL(createCategoryTable);
 
         final String createIngredientStubTable = "CREATE TABLE " +
@@ -39,10 +38,14 @@ public class TacoDBHelper extends SQLiteOpenHelper {
                 IngredientStubContract.IngredientStubEntry.COLUMN_INGREDIENT_ID + " INTEGER NOT NULL, " +
                 IngredientStubContract.IngredientStubEntry.COLUMN_INGREDIENT_DESCRIPT + " TEXT, " +
                 IngredientStubContract.IngredientStubEntry.COLUMN_INGREDIENT_CLASSIF + " TEXT);";
-
         db.execSQL(createIngredientStubTable);
 
-        // TODO: Create Recipe Table
+        final String createRecipeTable = "CREATE TABLE " +
+                RecipeContract.RecipeEntry.TABLE_NAME + " (" +
+                RecipeContract.RecipeEntry._ID + " INTEGER PRIMARY KEY, " +
+                RecipeContract.RecipeEntry.COLUMN_RECIPE_NAME + " TEXT NOT NULL, " +
+                RecipeContract.RecipeEntry.COLUMN_RECIPE_INGREDIENTS + " TEXT);";
+        db.execSQL(createRecipeTable);
 
         final String createIngredientTable = "CREATE TABLE " + IngredientContract.IngredientEntry.TABLE_NAME + " (" +
                 IngredientContract.IngredientEntry._ID + " INTEGER PRIMARY KEY, " +
@@ -76,16 +79,16 @@ public class TacoDBHelper extends SQLiteOpenHelper {
                 IngredientContract.IngredientEntry.COLUMN_INGREDIENT_NIAC + " TEXT, " +
                 IngredientContract.IngredientEntry.COLUMN_INGREDIENT_VITAC + " TEXT, " +
                 IngredientContract.IngredientEntry.COLUMN_UPDATED_DATE + ");";
-
         db.execSQL(createIngredientTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("DROP TABLE IF EXISTS " + CategoryContract.CategoryEntry.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + IngredientContract.IngredientEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + FavoriteContract.FavoriteEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + CategoryContract.CategoryEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + IngredientStubContract.IngredientStubEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + RecipeContract.RecipeEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + IngredientContract.IngredientEntry.TABLE_NAME);
 
         onCreate(db);
     }

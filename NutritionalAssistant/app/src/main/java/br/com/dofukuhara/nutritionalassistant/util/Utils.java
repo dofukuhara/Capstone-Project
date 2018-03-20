@@ -9,10 +9,12 @@ import br.com.dofukuhara.nutritionalassistant.data.CategoryContract;
 import br.com.dofukuhara.nutritionalassistant.data.FavoriteContract;
 import br.com.dofukuhara.nutritionalassistant.data.IngredientContract;
 import br.com.dofukuhara.nutritionalassistant.data.IngredientStubContract;
+import br.com.dofukuhara.nutritionalassistant.data.RecipeContract;
 import br.com.dofukuhara.nutritionalassistant.model.Category;
 import br.com.dofukuhara.nutritionalassistant.model.Favorite;
 import br.com.dofukuhara.nutritionalassistant.model.Ingredient;
 import br.com.dofukuhara.nutritionalassistant.model.IngredientStub;
+import br.com.dofukuhara.nutritionalassistant.model.Recipe;
 
 /**
  * Created by dofukuhara on 14/02/2018.
@@ -209,6 +211,21 @@ public final class Utils {
             retList.add(new Favorite(
                     cursor.getInt(cursor.getColumnIndex(FavoriteContract.FavoriteEntry.COLUMN_FAVORITE_ID)),
                     cursor.getString(cursor.getColumnIndex(FavoriteContract.FavoriteEntry.COLUMN_FAVORITE_NAME))
+            ));
+        }
+
+        return retList;
+    }
+
+    // Function that receives a Cursor and return a list of Receipes
+    public static ArrayList<Recipe> cursorToRecipeList(Cursor cursor) {
+        ArrayList<Recipe> retList = new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            retList.add(new Recipe(
+                    cursor.getInt(cursor.getColumnIndex(RecipeContract.RecipeEntry._ID)),
+                    cursor.getString(cursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_RECIPE_NAME)),
+                    cursor.getString(cursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_RECIPE_INGREDIENTS))
             ));
         }
 

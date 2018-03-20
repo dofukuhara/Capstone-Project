@@ -1,6 +1,7 @@
 package br.com.dofukuhara.nutritionalassistant.data;
 
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -35,6 +36,8 @@ public class TacoProvider extends ContentProvider {
     public static final int INGREDIENT_STUBS_WITH_CLASSIFICATION_ID = 302;
     public static final int INGREDIENTS = 400;
     public static final int INGREDIENT_WITH_INGREDIENT_ID = 401;
+    public static final int RECIPES = 500;
+    public static final int RECIPES_WITH_ID = 501;
 
     private TacoDBHelper mTacoDBHelper;
 
@@ -56,6 +59,8 @@ public class TacoProvider extends ContentProvider {
         matcher.addURI(Utils.AUTHORITY, IngredientContract.INGREDIENT_PATH, INGREDIENTS);
         matcher.addURI(Utils.AUTHORITY, IngredientContract.INGREDIENT_PATH + "/#",
                 INGREDIENT_WITH_INGREDIENT_ID);
+        matcher.addURI(Utils.AUTHORITY, RecipeContract.RECIPE_PATH, RECIPES);
+        matcher.addURI(Utils.AUTHORITY, RecipeContract.RECIPE_PATH + "/#", RECIPES_WITH_ID);
 
         return matcher;
     }
@@ -147,6 +152,20 @@ public class TacoProvider extends ContentProvider {
                         new String[] {id}, null, null, sortOrder);
                 break;
 
+            case RECIPES:
+                retCursor = db.query(RecipeContract.RecipeEntry.TABLE_NAME,
+                        projections, selection, selectionArgs,
+                        null, null, sortOrder);
+                break;
+
+            case RECIPES_WITH_ID:
+                id = uri.getPathSegments().get(1);
+
+                retCursor = db.query(RecipeContract.RecipeEntry.TABLE_NAME, projections,
+                        RecipeContract.RecipeEntry._ID + "=?",
+                        new String[] {id}, null, null, sortOrder);
+                break;
+
             default:
                 throw new UnsupportedOperationException("Unknown URI: " + uri);
         }
@@ -189,6 +208,12 @@ public class TacoProvider extends ContentProvider {
 
             case INGREDIENT_WITH_INGREDIENT_ID:
                 return "vnd.android.cursor.item/vnd.br.com.dofukuhara.nutritionalassistant.ingredient";
+
+            case RECIPES:
+                return "vnd.android.cursor.dir/vnd.br.com.dofukuhara.nutritionalassistant.recipe";
+
+            case RECIPES_WITH_ID:
+                return "vnd.android.cursor.item/vnd.br.com.dofukuhara.nutritionalassistant.recipe";
 
             default:
                 throw new UnsupportedOperationException("Unknown URI: " + uri);
@@ -245,12 +270,24 @@ public class TacoProvider extends ContentProvider {
                 }
                 break;
 
+            case RECIPES:
+                long newRecipeId = db.insert(RecipeContract.RecipeEntry.TABLE_NAME,
+                        null, contentValues);
+                if (newRecipeId < 0) {
+                    throw new SQLException("Failed to insert Recipe into " + uri);
+                } else {
+                    retUri = ContentUris.withAppendedId(
+                            RecipeContract.RecipeEntry.CONTENT_URI, newRecipeId);
+                }
+                break;
+
             case FAVORITE_WITH_ID:
             case CATEGORY_WITH_ROW_ID:
             case CATEGORY_WITH_CATEGORY_ID:
             case INGREDIENT_STUBS_WITH_INGREDIENT_ID:
             case INGREDIENT_STUBS_WITH_CLASSIFICATION_ID:
             case INGREDIENT_WITH_INGREDIENT_ID:
+            case RECIPES_WITH_ID:
 
             default:
                 throw new UnsupportedOperationException("Unknown URI: " + uri);
@@ -265,10 +302,11 @@ public class TacoProvider extends ContentProvider {
         final SQLiteDatabase db = mTacoDBHelper.getWritableDatabase();
 
         int retDeletedId;
+        String id;
 
         switch (sUriMater.match(uri)) {
             case FAVORITE_WITH_ID:
-                String id = uri.getPathSegments().get(1);
+                id = uri.getPathSegments().get(1);
                 retDeletedId = db.delete(FavoriteContract.FavoriteEntry.TABLE_NAME,
                         "_id=?", new String[]{id});
                 break;
@@ -276,6 +314,13 @@ public class TacoProvider extends ContentProvider {
             case FAVORITES:
                 retDeletedId = db.delete(FavoriteContract.FavoriteEntry.TABLE_NAME,
                         where, whereArgs);
+                break;
+
+            case RECIPES_WITH_ID:
+                id = uri.getPathSegments().get(1);
+                retDeletedId = db.delete(RecipeContract.RecipeEntry.TABLE_NAME,
+                        RecipeContract.RecipeEntry._ID + "=?",
+                        new String[] {id});
                 break;
 
             // TODO: Check if Category DELETE operation should be implemented or not
@@ -289,6 +334,8 @@ public class TacoProvider extends ContentProvider {
             // TODO: Check if Ingredient DELETE operation should be implemented or not
             case INGREDIENTS:
             case INGREDIENT_WITH_INGREDIENT_ID:
+            // TODO: Check if RECIPES DELETE operation should be implemented or not
+            case RECIPES:
 
             default:
                 throw new UnsupportedOperationException("Unknown URI: " + uri);

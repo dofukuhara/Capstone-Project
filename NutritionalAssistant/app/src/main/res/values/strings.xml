@@ -8,11 +8,13 @@
     <string name="activity_ingredient_details">Ingredient Details</string>
     <string name="activity_ingredients_by_category">Ingredients By Category</string>
     <string name="activity_favorite_list">Favorite List</string>
+    <string name="activity_recipe_list">Recipe List</string>
 
     // Common Strings
     <string name="save">Save</string>
     <string name="none">None</string>
     <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
     <string name="invalid_option">Invalid Option. Something went wrong :(</string>
 
     <string name="base_url_for_taco" translatable="false">"https://taco-alimentos.herokuapp.com/"</string>
@@ -63,13 +65,16 @@
     <string name="save_to_fav_success">Successfully saved this ingredient in the Favorite List!</string>
     <string name="save_to_fav_fail">Failed to save this ingredient in the Favorite List :(</string>
     <string name="rem_from_fav_success">Successfully removed this ingredient from the Favorite List!</string>
-    <string name="rem_from_fav_fail">Failed to remove this ingreient from the Favorite List :(</string>
+    <string name="rem_from_fav_fail">Failed to remove this ingredient from the Favorite List :(</string>
     <string name="ingredient_compose_info">* Composition of food per 100g of edible portion</string>
     <string name="failed_to_save_ingredient_offline">Failed to save this ingredient offline</string>
 
-    <!--
-    <string name="banner_ad_unit_id">ca-app-pub-5007360584192599/944378689</string>
-    <string name="banner_ad_unit_id">ca-app-pub-5007360584192599/7720050809</string>
--->
+    // Strings for Create New Recipe Dialog
+    <string name="dialog_new_recipe_title">Create New Recipe</string>
+    <string name="hint_add_new_recipe">Insert a new recipe name</string>
+    <string name="recipe_already_exists">This recipe already exists! Please try another name.</string>
+    <string name="recipe_successfully_registered">Recipe registered successfully!</string>
+    <string name="recipe_register_fail">Failed to register this recipe :(</string>
+    <string name="recipe_empty_field_not_allowed">Empty field! Please insert a Recipe Name.</string>
 
 </resources>
