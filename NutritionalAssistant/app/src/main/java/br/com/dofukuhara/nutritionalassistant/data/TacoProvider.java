@@ -232,7 +232,7 @@ public class TacoProvider extends ContentProvider {
                 long newFavId = db.insert(FavoriteContract.FavoriteEntry.TABLE_NAME,
                         null, contentValues);
                 if (newFavId < 0) {
-                    throw new SQLException("Failed to insert Favorite into: " + uri);
+                    return null;
                 } else {
                     retUri = ContentUris.withAppendedId(FavoriteContract.FavoriteEntry.CONTENT_URI, newFavId);
                 }
@@ -301,24 +301,25 @@ public class TacoProvider extends ContentProvider {
     public int delete(@NonNull Uri uri, @Nullable String where, @Nullable String[] whereArgs) {
         final SQLiteDatabase db = mTacoDBHelper.getWritableDatabase();
 
-        int retDeletedId;
+        int retNumberDeleted;
         String id;
 
         switch (sUriMater.match(uri)) {
             case FAVORITE_WITH_ID:
                 id = uri.getPathSegments().get(1);
-                retDeletedId = db.delete(FavoriteContract.FavoriteEntry.TABLE_NAME,
-                        "_id=?", new String[]{id});
+                retNumberDeleted = db.delete(FavoriteContract.FavoriteEntry.TABLE_NAME,
+                        FavoriteContract.FavoriteEntry.COLUMN_FAVORITE_ID + "=?",
+                        new String[]{id});
                 break;
 
             case FAVORITES:
-                retDeletedId = db.delete(FavoriteContract.FavoriteEntry.TABLE_NAME,
+                retNumberDeleted = db.delete(FavoriteContract.FavoriteEntry.TABLE_NAME,
                         where, whereArgs);
                 break;
 
             case RECIPES_WITH_ID:
                 id = uri.getPathSegments().get(1);
-                retDeletedId = db.delete(RecipeContract.RecipeEntry.TABLE_NAME,
+                retNumberDeleted = db.delete(RecipeContract.RecipeEntry.TABLE_NAME,
                         RecipeContract.RecipeEntry._ID + "=?",
                         new String[] {id});
                 break;
@@ -341,11 +342,11 @@ public class TacoProvider extends ContentProvider {
                 throw new UnsupportedOperationException("Unknown URI: " + uri);
         }
 
-        if (retDeletedId != 0) {
+        if (retNumberDeleted != 0) {
             getContext().getContentResolver().notifyChange(uri, null);
         }
 
-        return retDeletedId;
+        return retNumberDeleted;
     }
 
     @Override

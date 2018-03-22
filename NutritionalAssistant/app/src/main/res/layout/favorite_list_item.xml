@@ -9,8 +9,22 @@
     <TextView
         android:id="@+id/tv_favorite_item"
         style="@style/item_list"
-        tools:text="Favorite Item Name"
+        app:layout_constraintEnd_toStartOf="@+id/ib_delete_favorite"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:singleLine="true"
+        tools:text="Favorite Item Name" />
+
+    <ImageButton
+        android:id="@+id/ib_delete_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_delete"
+        android:tint="@android:color/darker_gray"
+        android:backgroundTint="?android:colorBackground"/>
+
 
 </android.support.constraint.ConstraintLayout>

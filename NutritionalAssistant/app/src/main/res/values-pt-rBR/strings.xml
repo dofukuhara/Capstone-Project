@@ -17,6 +17,9 @@
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
     <string name="invalid_option">Opção Inválida. Algo deu errado :(</string>
+    <string name="undo">DESFAZ.</string>
+    <string name="ing_removed_from_fav_success">Ingrediente removido com sucesso da lista de favoritos</string>
+    <string name="ing_removed_from_fav_fail">Falha ao remover ingrediente da lista de favoritos</string>
 
     // Strings para labels do Menu
     <string name="menu_by_category_label">Por Categoria</string>

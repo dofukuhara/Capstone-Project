@@ -140,6 +140,7 @@ public final class Utils {
         return retCv;
     }
 
+    // Function that receives a Cursor and returns an Ingredient obj
     public static Ingredient cursorToIngredient(Cursor ingredCursor) {
        return new Ingredient(
                ingredCursor.getInt(ingredCursor.getColumnIndex(
@@ -230,5 +231,15 @@ public final class Utils {
         }
 
         return retList;
+    }
+
+    // Function that receives a Favorite obj and return a ContentValues
+    public static ContentValues favToCv(Favorite favorite) {
+        ContentValues cv = new ContentValues();
+
+        cv.put(FavoriteContract.FavoriteEntry.COLUMN_FAVORITE_ID, favorite.getIngredientId());
+        cv.put(FavoriteContract.FavoriteEntry.COLUMN_FAVORITE_NAME, favorite.getIngredientName());
+
+        return cv;
     }
 }

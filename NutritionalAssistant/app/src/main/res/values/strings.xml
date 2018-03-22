@@ -16,6 +16,9 @@
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
     <string name="invalid_option">Invalid Option. Something went wrong :(</string>
+    <string name="undo">UNDO</string>
+    <string name="ing_removed_from_fav_success">Successfully removed ingredient from favorite</string>
+    <string name="ing_removed_from_fav_fail">Failed to remove ingredient from favorite</string>
 
     <string name="base_url_for_taco" translatable="false">"https://taco-alimentos.herokuapp.com/"</string>
 

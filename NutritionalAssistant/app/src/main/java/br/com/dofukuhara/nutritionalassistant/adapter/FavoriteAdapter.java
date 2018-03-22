@@ -4,7 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -53,7 +55,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
     }
 
     public interface FavoriteItemClickListener {
-        void onFavoriteItemClick(Favorite favorite);
+        void onFavoriteItemClick(boolean addToFav, Favorite favorite);
     }
 
     class FavoriteListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -61,12 +63,24 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         @BindView(R.id.tv_favorite_item)
         TextView tvFavoriteItem;
 
+        @BindView(R.id.ib_delete_favorite)
+        ImageButton ibDeleteFavorite;
+
         public FavoriteListViewHolder(View itemView) {
             super(itemView);
 
             ButterKnife.bind(this, itemView);
 
             itemView.setOnClickListener(this);
+            ibDeleteFavorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mFavoriteItemClickListener.onFavoriteItemClick(
+                            false,
+                            mFavoriteList.get(getAdapterPosition())
+                    );
+                }
+            });
         }
 
         void bind(int ingredientId) {
@@ -76,7 +90,11 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         @Override
         public void onClick(View view) {
             int itemPosition = getAdapterPosition();
-            mFavoriteItemClickListener.onFavoriteItemClick(mFavoriteList.get(itemPosition));
+            mFavoriteItemClickListener.onFavoriteItemClick(
+                    true,
+                    mFavoriteList.get(itemPosition)
+            );
         }
+
     }
 }
