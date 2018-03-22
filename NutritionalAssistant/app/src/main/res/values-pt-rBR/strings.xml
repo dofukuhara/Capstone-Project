@@ -16,10 +16,13 @@
     <string name="none">Nenhuma</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
+    <string name="delete">Remover</string>
     <string name="invalid_option">Opção Inválida. Algo deu errado :(</string>
     <string name="undo">DESFAZ.</string>
     <string name="ing_removed_from_fav_success">Ingrediente removido com sucesso da lista de favoritos</string>
     <string name="ing_removed_from_fav_fail">Falha ao remover ingrediente da lista de favoritos</string>
+    <string name="are_you_sure_delete_recipe_title">Remover Receita</string>
+    <string name="are_you_sure_delete_recipe_msg">Tem certeza que desaja remover essa receita?</string>
 
     // Strings para labels do Menu
     <string name="menu_by_category_label">Por Categoria</string>
@@ -78,4 +81,6 @@
     <string name="recipe_successfully_registered">Receita registrada com sucesso!</string>
     <string name="recipe_register_fail">Falha ao registrar esta receita :(</string>
     <string name="recipe_empty_field_not_allowed">Campo Vazio! Favor inserir um nome para a receita.</string>
+    <string name="recipe_fail_delete">Falha ao remover esta lista</string>
+    <string name="recipe_delete_success">Receita removida com sucesso</string>
 </resources>

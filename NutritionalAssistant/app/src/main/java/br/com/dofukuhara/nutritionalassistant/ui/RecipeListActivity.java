@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,8 +17,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -186,7 +185,9 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
 
     @Override
     public void onRecipeItemClick(Recipe recipe) {
-        // TODO: Implement Recipe Click Listener
-        Toast.makeText(this, "Recipe Name: " + recipe.getRecipeName(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, RecipeDetailsActivity.class);
+        intent.putExtra(Utils.CONST_INTENT_RECIPE, recipe);
+
+        startActivity(intent);
     }
 }

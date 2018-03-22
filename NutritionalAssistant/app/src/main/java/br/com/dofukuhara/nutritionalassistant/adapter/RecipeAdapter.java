@@ -49,7 +49,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeList
 
     @Override
     public int getItemCount() {
-        return mRecipeList.size();
+        return mRecipeList == null ? 0 : mRecipeList.size();
     }
 
     public interface RecipeItemClickListener {

@@ -15,10 +15,13 @@
     <string name="none">None</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
     <string name="invalid_option">Invalid Option. Something went wrong :(</string>
     <string name="undo">UNDO</string>
     <string name="ing_removed_from_fav_success">Successfully removed ingredient from favorite</string>
     <string name="ing_removed_from_fav_fail">Failed to remove ingredient from favorite</string>
+    <string name="are_you_sure_delete_recipe_title">Delete Recipe</string>
+    <string name="are_you_sure_delete_recipe_msg">Are you sure that you want to remove this recipe?</string>
 
     <string name="base_url_for_taco" translatable="false">"https://taco-alimentos.herokuapp.com/"</string>
 
@@ -79,5 +82,7 @@
     <string name="recipe_successfully_registered">Recipe registered successfully!</string>
     <string name="recipe_register_fail">Failed to register this recipe :(</string>
     <string name="recipe_empty_field_not_allowed">Empty field! Please insert a Recipe Name.</string>
+    <string name="recipe_fail_delete">Failed to delete this recipe</string>
+    <string name="recipe_delete_success">Recipe deleted successfully</string>
 
 </resources>

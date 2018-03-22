@@ -32,7 +32,8 @@
         <activity android:name=".ui.IngredientDetailsActivity" />
         <activity android:name=".ui.IngredientsByCategoryActivity" />
         <activity android:name=".ui.FavoriteListActivity" />
-        <activity android:name=".ui.RecipeListActivity"></activity>
+        <activity android:name=".ui.RecipeListActivity" />
+        <activity android:name=".ui.RecipeDetailsActivity"></activity>
     </application>
 
 </manifest>

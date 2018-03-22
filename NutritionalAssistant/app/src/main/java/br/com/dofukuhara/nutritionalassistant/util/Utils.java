@@ -41,6 +41,8 @@ public final class Utils {
     public static final String CONST_INTENT_INGREDIENT_ID = "const_intent_ingredient_id";
     // Intent action to send Category obj from CategoryList to IngredientsByCategory activity
     public static final String CONST_INTENT_CATEGORY = "const_intent_category";
+    // Intent action to send Recipe obj from RecipeList to RecipeDetails activity
+    public static final String CONST_INTENT_RECIPE = "const_intent_recipe";
 
     /* Consts for SavedInstance Bundle */
     // CategoryListActivity - CategoryList Parcelable
