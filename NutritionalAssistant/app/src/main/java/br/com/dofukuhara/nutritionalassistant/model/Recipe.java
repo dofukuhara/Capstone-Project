@@ -60,4 +60,8 @@ public class Recipe implements Parcelable {
     public String getRecipeIngredients() {
         return this.recipeIngredients;
     }
+
+    public void setRecipeIngredients(String list) {
+        this.recipeIngredients = list;
+    }
 }

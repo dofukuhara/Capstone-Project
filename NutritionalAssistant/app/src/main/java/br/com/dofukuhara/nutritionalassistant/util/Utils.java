@@ -244,4 +244,14 @@ public final class Utils {
 
         return cv;
     }
+
+    public static Recipe cursorToRecipe(Cursor cursor) {
+        if (cursor.moveToFirst()) {
+            return new Recipe(cursor.getInt(cursor.getColumnIndex(RecipeContract.RecipeEntry._ID)),
+                    cursor.getString(cursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_RECIPE_NAME)),
+                    cursor.getString(cursor.getColumnIndex(RecipeContract.RecipeEntry.COLUMN_RECIPE_INGREDIENTS)));
+        } else {
+            return null;
+        }
+    }
 }

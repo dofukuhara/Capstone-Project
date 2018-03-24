@@ -295,6 +295,9 @@ public class IngredientDetailsActivity extends AppCompatActivity {
 
         // Set the Click Listener for the Favorite icon
         setFavoriteButtonListener();
+
+        cursor.close();
+        checkForIngredientInProviderCursor.close();
     }
 
     private void setFavoriteButtonListener() {
@@ -341,6 +344,8 @@ public class IngredientDetailsActivity extends AppCompatActivity {
                         showToastMessage(R.string.save_to_fav_fail);
                     }
                 }
+
+                checkForIngredientInProviderCursor.close();
 
             }
 

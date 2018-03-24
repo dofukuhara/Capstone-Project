@@ -11,6 +11,7 @@
         android:id="@+id/cb_allow_mobile_data_connection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_padding"
         android:layout_marginLeft="@dimen/default_padding"
         android:layout_marginTop="@dimen/default_padding"
         android:text="@string/config_label_allow_mobile_connection"

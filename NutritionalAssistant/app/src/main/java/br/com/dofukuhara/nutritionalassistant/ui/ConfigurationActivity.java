@@ -123,7 +123,7 @@ public class ConfigurationActivity extends AppCompatActivity {
                 editor.putBoolean(Utils.CONST_SHARED_PREF_IS_MOBILE_DATA_ALLOWED, isChecked);
 
                 // Only save a 'valid' Account Name in Shared Pref
-                String accountName = mTvAccountName.getText().toString() != getString(R.string.none)
+                String accountName = !mTvAccountName.getText().toString().equals(getString(R.string.none))
                         ? mTvAccountName.getText().toString() : "";
                 editor.putString(Utils.CONST_SHARED_PREF_ACCOUNT_NAME_INFO, accountName);
 

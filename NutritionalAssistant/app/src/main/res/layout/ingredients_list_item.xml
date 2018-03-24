@@ -9,7 +9,22 @@
         android:id="@+id/tv_ingredient_item"
         style="@style/item_list"
         tools:text="Ingredients Item Name"
+        app:layout_constraintEnd_toStartOf="@+id/ib_delete_ingredient"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageButton
+        android:id="@+id/ib_delete_ingredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_delete"
+        android:tint="@android:color/darker_gray"
+        android:backgroundTint="?android:colorBackground"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </android.support.constraint.ConstraintLayout>

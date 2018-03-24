@@ -134,7 +134,7 @@ public class IngredientsByCategoryActivity extends AppCompatActivity implements 
         Uri uri = IngredientStubContract.BASE_CONTENT_URI
                 .buildUpon().appendEncodedPath(IngredientStubContract.INGREDIENT_STUB_CLASS_PATH)
                 .build();
-        Uri uriForQuery = ContentUris.withAppendedId(uri, Long.valueOf(mCategory.getId()));
+        Uri uriForQuery = ContentUris.withAppendedId(uri, mCategory.getId());
         Cursor cursor = cr.query(uriForQuery, null, null, null, null);
         mIngredientStubList = Utils.cursorToIngredientStubList(cursor);
 

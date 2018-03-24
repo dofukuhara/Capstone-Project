@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,12 +18,12 @@ import butterknife.ButterKnife;
  * Created by dofukuhara on 18/03/2018.
  */
 
-public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.FavoriteListViewHolder>{
+public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapter.FavoriteListViewHolder>{
 
     private ArrayList<Favorite> mFavoriteList;
     private FavoriteItemClickListener mFavoriteItemClickListener;
 
-    public FavoriteAdapter(FavoriteItemClickListener listener) {
+    public FavoriteListAdapter(FavoriteItemClickListener listener) {
         mFavoriteList = new ArrayList<>();
         mFavoriteItemClickListener = listener;
     }

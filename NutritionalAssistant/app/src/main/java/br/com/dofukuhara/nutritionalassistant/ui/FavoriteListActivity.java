@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import br.com.dofukuhara.nutritionalassistant.R;
-import br.com.dofukuhara.nutritionalassistant.adapter.FavoriteAdapter;
+import br.com.dofukuhara.nutritionalassistant.adapter.FavoriteListAdapter;
 import br.com.dofukuhara.nutritionalassistant.data.FavoriteContract;
 import br.com.dofukuhara.nutritionalassistant.model.Favorite;
 import br.com.dofukuhara.nutritionalassistant.util.AdMobManager;
@@ -32,10 +32,10 @@ import br.com.dofukuhara.nutritionalassistant.util.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FavoriteListActivity extends AppCompatActivity implements FavoriteAdapter.FavoriteItemClickListener {
+public class FavoriteListActivity extends AppCompatActivity implements FavoriteListAdapter.FavoriteItemClickListener {
 
     private ArrayList<Favorite> mFavoriteList;
-    private FavoriteAdapter mFavoriteAdapter;
+    private FavoriteListAdapter mFavoriteAdapter;
 
     @BindView(R.id.pb_favorite_list)
     ProgressBar mPgFavoriteList;
@@ -92,7 +92,7 @@ public class FavoriteListActivity extends AppCompatActivity implements FavoriteA
     private void setLayoutParams() {
         Collections.sort(mFavoriteList, new FavoritesNameComparator());
 
-        mFavoriteAdapter = new FavoriteAdapter(this);
+        mFavoriteAdapter = new FavoriteListAdapter(this);
         mFavoriteAdapter.setFavoriteList(mFavoriteList);
 
         mRvFavoriteList.setAdapter(mFavoriteAdapter);

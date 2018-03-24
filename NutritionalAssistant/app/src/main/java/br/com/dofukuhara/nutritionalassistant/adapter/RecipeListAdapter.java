@@ -17,12 +17,12 @@ import butterknife.ButterKnife;
  * Created by dofukuhara on 19/03/2018.
  */
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeListViewHolder>{
+public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder>{
 
     private ArrayList<Recipe> mRecipeList;
     private RecipeItemClickListener mRecipeClickListener;
 
-    public RecipeAdapter(RecipeItemClickListener listener) {
+    public RecipeListAdapter(RecipeItemClickListener listener) {
         mRecipeList = new ArrayList<>();
         mRecipeClickListener = listener;
     }

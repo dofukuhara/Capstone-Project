@@ -1,7 +1,6 @@
 package br.com.dofukuhara.nutritionalassistant.data;
 
 import android.content.ContentProvider;
-import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -350,8 +349,27 @@ public class TacoProvider extends ContentProvider {
     }
 
     @Override
-    public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
+    public int update(@NonNull Uri uri, @Nullable ContentValues contentValues,
+                      @Nullable String whereClause, @Nullable String[] whereArgs) {
         // This provider won' support UPDATE operation by now
-        return 0;
+        //return 0;
+
+        final SQLiteDatabase db = mTacoDBHelper.getWritableDatabase();
+
+        int retNumberUpdated = 0;
+        String id;
+
+        switch (sUriMater.match(uri)) {
+            case RECIPES:
+                db.update(RecipeContract.RecipeEntry.TABLE_NAME,
+                        contentValues, whereClause, whereArgs);
+                break;
+
+            default:
+                throw new UnsupportedOperationException("Unknown URI: " + uri);
+
+        }
+
+        return retNumberUpdated;
     }
 }

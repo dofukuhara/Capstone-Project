@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import br.com.dofukuhara.nutritionalassistant.R;
-import br.com.dofukuhara.nutritionalassistant.adapter.CategoryAdapter;
+import br.com.dofukuhara.nutritionalassistant.adapter.CategoryListAdapter;
 import br.com.dofukuhara.nutritionalassistant.data.CategoryContract;
 import br.com.dofukuhara.nutritionalassistant.model.Category;
 import br.com.dofukuhara.nutritionalassistant.network.TacoRestClient;
@@ -39,7 +39,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CategoryListActivity extends AppCompatActivity implements CategoryAdapter.CategoryItemClickListener {
+public class CategoryListActivity extends AppCompatActivity implements CategoryListAdapter.CategoryItemClickListener {
 
     @BindView(R.id.pb_category_list)
     ProgressBar mPbCategoryList;
@@ -51,7 +51,7 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryA
     AdView mAdView;
 
     private ArrayList<Category> mCategoryList;
-    private CategoryAdapter mCategoryAdapter;
+    private CategoryListAdapter mCategoryAdapter;
 
     private boolean isMobileDataAllowed;
 
@@ -109,7 +109,9 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryA
 
                 // Get an ArrayList of Category from a cursor
                 mCategoryList = Utils.cursorToCategoryArrayList(cursor);
-                cursor.close();
+                if (cursor != null) {
+                    cursor.close();
+                }
 
                 if (mCategoryList.size() == 0) {
                     // In case that the list is empty, we need to fetch the data from the internet
@@ -142,7 +144,7 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryA
         mRvCategoryList.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
 
-        mCategoryAdapter = new CategoryAdapter(this);
+        mCategoryAdapter = new CategoryListAdapter(this);
     }
 
     private void getCategoryFromRest() {

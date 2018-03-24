@@ -18,13 +18,12 @@ import butterknife.ButterKnife;
  * Created by dofukuhara on 15/02/2018.
  */
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryListViewHolder> {
+public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.CategoryListViewHolder> {
 
     private ArrayList<Category> mCategoryList;
     private CategoryItemClickListener mCategoryItemClickListener;
-    private Context mContext;
 
-    public CategoryAdapter(CategoryItemClickListener listener) {
+    public CategoryListAdapter(CategoryItemClickListener listener) {
         mCategoryList = new ArrayList<>();
         mCategoryItemClickListener = listener;
     }
@@ -35,7 +34,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public CategoryListViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        mContext = viewGroup.getContext();
+        Context mContext = viewGroup.getContext();
 
         int layoutIdForListItem = R.layout.category_list_item;
         LayoutInflater inflater = LayoutInflater.from(mContext);

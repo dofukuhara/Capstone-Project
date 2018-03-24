@@ -42,7 +42,6 @@
 
     // Strings para Activity de Detalhes do Ingrediente
     <string name="img_btn_favorite">Botão para salvar o ingrediente na lista de favoritos!</string>
-    <string name="ing_det_category_label">Categoria:</string>
     <string name="ing_det_energy_label">Energia (Kcal):</string>
     <string name="ing_det_protein_label">Proteína (g):</string>
     <string name="ing_det_lipids_label">Lipídios (g):</string>
@@ -83,4 +82,9 @@
     <string name="recipe_empty_field_not_allowed">Campo Vazio! Favor inserir um nome para a receita.</string>
     <string name="recipe_fail_delete">Falha ao remover esta lista</string>
     <string name="recipe_delete_success">Receita removida com sucesso</string>
+
+    // Strings para a Activity de Detalhes de Receita
+    <string name="add_new_ingredient">-- Adicionar novo Ingrediente da Lista de Favoritos --</string>
+    <string name="remove_from_recipe_success">Ingrediente removido desta receita com sucesso!</string>
+
 </resources>

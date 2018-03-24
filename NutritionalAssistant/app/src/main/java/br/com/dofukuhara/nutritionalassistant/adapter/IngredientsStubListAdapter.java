@@ -22,7 +22,6 @@ public class IngredientsStubListAdapter extends RecyclerView.Adapter<Ingredients
 
     private ArrayList<IngredientStub> mIngredientsList;
     private IngredientItemClickListener mIngredientItemClickListener;
-    private Context mContext;
 
     public IngredientsStubListAdapter(IngredientItemClickListener listener) {
         mIngredientsList = new ArrayList<>();
@@ -35,7 +34,7 @@ public class IngredientsStubListAdapter extends RecyclerView.Adapter<Ingredients
 
     @Override
     public IngredientsListViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        mContext = viewGroup.getContext();
+        Context mContext = viewGroup.getContext();
 
         int layoutIdForListItem = R.layout.ingredients_list_item;
         LayoutInflater inflater = LayoutInflater.from(mContext);

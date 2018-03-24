@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import br.com.dofukuhara.nutritionalassistant.R;
-import br.com.dofukuhara.nutritionalassistant.adapter.RecipeAdapter;
+import br.com.dofukuhara.nutritionalassistant.adapter.RecipeListAdapter;
 import br.com.dofukuhara.nutritionalassistant.data.RecipeContract;
 import br.com.dofukuhara.nutritionalassistant.model.Recipe;
 import br.com.dofukuhara.nutritionalassistant.util.AdMobManager;
@@ -37,10 +37,10 @@ import br.com.dofukuhara.nutritionalassistant.util.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RecipeListActivity extends AppCompatActivity implements RecipeAdapter.RecipeItemClickListener {
+public class RecipeListActivity extends AppCompatActivity implements RecipeListAdapter.RecipeItemClickListener {
 
     private ArrayList<Recipe> mRecipeList;
-    private RecipeAdapter mReciperAdapter;
+    private RecipeListAdapter mReciperAdapter;
 
     @BindView(R.id.fab_add_recipe)
     FloatingActionButton mFabAddRecipe;
@@ -100,7 +100,7 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
         Collections.sort(mRecipeList, new RecipesNameComparator());
 
         if (!update) {
-            mReciperAdapter = new RecipeAdapter(this);
+            mReciperAdapter = new RecipeListAdapter(this);
         }
         mReciperAdapter.setRecipeList(mRecipeList);
 
@@ -158,8 +158,12 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
             if (uri != null) {
                 showToast(R.string.recipe_successfully_registered);
 
-                loadContentFromProvider();
-                setLayoutParams(true);
+                Cursor recipeCursor = cr.query(uri, null, null, null, null);
+                Recipe recipe = Utils.cursorToRecipe(recipeCursor);
+                Intent intent = new Intent(this, RecipeDetailsActivity.class);
+                intent.putExtra(Utils.CONST_INTENT_RECIPE, recipe);
+
+                startActivity(intent);
             } else {
                 showToast(R.string.recipe_register_fail);
             }

@@ -103,7 +103,9 @@ public class AllIngredientsListActivity extends AppCompatActivity implements Ing
 
             // Get an ArrayList of IngredientStub from a cursor
             mIngredientsList = Utils.cursorToIngredientStubList(cursor);
-            cursor.close();
+            if (cursor != null) {
+                cursor.close();
+            }
 
             if (mIngredientsList.size() == 0) {
                 // In case that the list is empty, we need to fetch the data from the internet
