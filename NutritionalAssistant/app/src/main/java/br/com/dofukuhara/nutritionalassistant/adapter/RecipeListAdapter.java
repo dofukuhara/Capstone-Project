@@ -49,7 +49,11 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     @Override
     public int getItemCount() {
-        return mRecipeList == null ? 0 : mRecipeList.size();
+        if (mRecipeList == null || (mRecipeList != null && mRecipeList.size() == 0)) {
+            return 1;
+        } else {
+            return mRecipeList.size();
+        }
     }
 
     public interface RecipeItemClickListener {
@@ -66,11 +70,17 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
             ButterKnife.bind(this, itemView);
 
-            itemView.setOnClickListener(this);
+            if (mRecipeList != null && mRecipeList.size() != 0) {
+                itemView.setOnClickListener(this);
+            }
         }
 
         void bind(int recipeId) {
-            mRecipeNameItem.setText(mRecipeList.get(recipeId).getRecipeName());
+            if (mRecipeList != null && mRecipeList.size() != 0) {
+                mRecipeNameItem.setText(mRecipeList.get(recipeId).getRecipeName());
+            } else {
+                mRecipeNameItem.setText(R.string.no_recipe);
+            }
         }
 
         @Override

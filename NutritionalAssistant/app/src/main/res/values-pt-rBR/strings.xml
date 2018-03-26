@@ -87,4 +87,16 @@
     <string name="add_new_ingredient">-- Adicionar novo Ingrediente da Lista de Favoritos --</string>
     <string name="remove_from_recipe_success">Ingrediente removido desta receita com sucesso!</string>
 
+    // Strings para a Activity de Lista de Favorito
+    <string name="no_ingred_in_fav">-- Nenhum ingrediente na Lista de Favoritos --</string>
+
+    // Strings para a Activity de Lista de Receitas
+    <string name="no_recipe">-- Nenhuma receita registrada --</string>
+
+    // Strings para a Activity de Configuração do Widget
+    <string name="widget_choose_recipe">Escolha uma Receita:</string>
+    <string name="widget_generate_btn">Gerar Widget da Receita</string>
+    <string name="widget_operation_canceled">Operação de criação de Widget cancelada...</string>
+    <string name="widget_no_recipe">-- Nenhuma receita criada ainda --</string>
+
 </resources>

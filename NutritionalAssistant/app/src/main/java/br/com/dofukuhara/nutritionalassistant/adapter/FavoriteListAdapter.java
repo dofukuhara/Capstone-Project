@@ -50,7 +50,11 @@ public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapte
 
     @Override
     public int getItemCount() {
-        return mFavoriteList == null ? 0 : mFavoriteList.size();
+        if (mFavoriteList == null || (mFavoriteList != null && mFavoriteList.size() == 0)) {
+            return 1;
+        } else {
+            return mFavoriteList.size();
+        }
     }
 
     public interface FavoriteItemClickListener {
@@ -70,20 +74,27 @@ public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapte
 
             ButterKnife.bind(this, itemView);
 
-            itemView.setOnClickListener(this);
-            ibDeleteFavorite.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mFavoriteItemClickListener.onFavoriteItemClick(
-                            false,
-                            mFavoriteList.get(getAdapterPosition())
-                    );
-                }
-            });
+            if (mFavoriteList != null && mFavoriteList.size() != 0) {
+                itemView.setOnClickListener(this);
+                ibDeleteFavorite.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mFavoriteItemClickListener.onFavoriteItemClick(
+                                false,
+                                mFavoriteList.get(getAdapterPosition())
+                        );
+                    }
+                });
+            }
         }
 
         void bind(int ingredientId) {
-            tvFavoriteItem.setText(mFavoriteList.get(ingredientId).getIngredientName());
+            if (mFavoriteList != null && mFavoriteList.size() != 0) {
+                tvFavoriteItem.setText(mFavoriteList.get(ingredientId).getIngredientName());
+            } else {
+                tvFavoriteItem.setText(R.string.no_ingred_in_fav);
+                ibDeleteFavorite.setVisibility(View.GONE);
+            }
         }
 
         @Override

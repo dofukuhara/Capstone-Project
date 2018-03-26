@@ -88,4 +88,16 @@
     <string name="add_new_ingredient">-- Add new Ingredient from Favorite List --</string>
     <string name="remove_from_recipe_success">Successfully removed this ingredient from the recipe.</string>
 
+    // Strings for Favorite List Activity
+    <string name="no_ingred_in_fav">-- No ingredient in Favorites List --</string>
+
+    // Strings for Recipe List Activity
+    <string name="no_recipe">-- No Recipe registered --</string>
+
+    // Strings for the Widget Configuration Activity
+    <string name="widget_choose_recipe">Choose a Recipe:</string>
+    <string name="widget_generate_btn">Generate Recipe Widget</string>
+    <string name="widget_operation_canceled">Widget creation operation canceled...</string>
+    <string name="widget_no_recipe">-- No recipe yet created --"</string>
+
 </resources>
