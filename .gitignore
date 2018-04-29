@@ -10,3 +10,5 @@
 /NutritionalAssistant/captures
 /NutritionalAssistant/.externalNativeBuild
 /NutritionalAssistant/gradle.properties
+NutritionalAssistant/.idea/caches/
+NutritionalAssistant/.idea/codeStyles/
